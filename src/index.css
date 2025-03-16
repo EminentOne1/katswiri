@@ -122,9 +122,11 @@ Keywords: house, living
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 80px;
+  width: 150px;
   margin-top: 40px;
   align-items: center;
+  align-items: flex-start;
+  margin-left: 20px;
 }
 .main-container {
   display: flex;

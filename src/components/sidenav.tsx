@@ -9,9 +9,9 @@ const SideNav: React.FC = () => {
      
      <div className="footer">
 
-        <p>&copy;2025 Katswiri. All rights reserved.</p>
-        <p>Privacy Policy</p>
-        <p>Terms of Service</p>
+      
+        <p>Privacy Policy | Terms of Service | cookie usage</p>
+       
        
      </div>
   </div>;
