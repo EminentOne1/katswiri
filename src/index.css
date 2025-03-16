@@ -50,8 +50,8 @@ Keywords: house, living
 
   box-sizing: border-box;
 
-  width: 60%;
-  height: 59px;
+  width:fit-content;
+  height: 40px;
   left: 0px;
   top: 0px;
   display: flex;
@@ -64,22 +64,28 @@ Keywords: house, living
   align-items: center;
   gap: 20px;
 }
+.logosearchbar{
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust spacing between Logo & Searchbar */
+  flex-grow: 1; 
+}
 .profile-sect {
-  /* Frame 24 */
+
 
   box-sizing: border-box;
 
   width: fit-content;
-  height: 60px;
-  left: 1055px;
-  top: 21px;
+  height: 40px;
+
+
 
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+
   align-items: center;
 }
 .loggedout {
@@ -92,8 +98,9 @@ Keywords: house, living
   width: 80px;
   height: 35px;
   border-radius: 8px;
-  background-color: white;
+  background-color: black;
   border: 1px solid rgba(0, 0, 0, 0.32);
+  color: white;
 }
 .button-signin{
 
@@ -132,4 +139,38 @@ Keywords: house, living
   display: flex;
   flex-direction: row;
   gap: 20px;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.search {
+  width: 180px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar.expanded {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: -webkit-fill-available;
+  z-index: 100;
+}
+
+.search-bar.expanded .search {
+  width: 100%;
+  font-size: 16px;
+  border-color: black;
 }

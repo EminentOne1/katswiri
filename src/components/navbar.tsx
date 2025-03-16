@@ -13,8 +13,12 @@ const Navbar: React.FC<nav> = ({isloggedin}) => {
   return (
     <>
       <nav className="navigation-bar">
+        <div className="logosearchbar">
         <Logo />
         <Searchbar />
+
+        </div>
+      
         <button className="contact">Submit Music</button>
         <button className="contact">Contact us</button>
         <Divider/>
