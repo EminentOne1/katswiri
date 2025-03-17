@@ -2,6 +2,28 @@ body {
   background-color: #f5f5f5;
   font-family: open sans;
 }
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 5px;
+}
+
+/* Handle (scrollbar thumb) */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 .divider {
   height: 20px;
   width: 1px;
@@ -212,6 +234,7 @@ img:hover {
 .home-holder {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 .profile-dropdown {
   position: absolute;
@@ -351,7 +374,7 @@ img:hover {
 
 .card-image {
   width: 100%;
-  height: 150px;
+  height: 170px;
   object-fit: cover;
 }
 
@@ -368,23 +391,84 @@ img:hover {
   color: #666;
   text-align: center;
 }
+.main-style {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
 .home {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   overflow: hidden;
   align-items: flex-end;
 }
-.line-content{
-
+.line-content {
   display: flex;
   flex-direction: row;
-  gap :30px;
+  gap: 30px;
   align-items: center;
 }
-.line{
-
+.line {
   background-color: rgba(0, 0, 0, 0.1);
   height: 1px;
   width: 240px;
+}
+
+/**   music list*/
+.music-list {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  height: 200px; /* Adjust height as needed */
+  overflow-y: auto;
+  width: 600px;
+  justify-content: center;
+}
+
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two items per row */
+  gap: 15px; /* Equal spacing between items */
+  max-width: 600px;
+  width: 100%;
+}
+
+.music-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.music-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.music-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: black;
+  font-family: open sans;
+  font-size: 12px;
+}
+
+.icon {
+  color: white;
+}
+
+.heart-icon {
+  color: #666;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.heart-icon.liked {
+  color: #00ff00;
 }

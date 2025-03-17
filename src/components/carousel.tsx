@@ -10,9 +10,9 @@ const Carousel: React.FC<CarouselProps> = ({ title, seeMoreText }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
-    'https://picsum.photos/400/300',
-    'https://picsum.photos/400/300',
-    'https://picsum.photos/400/300',
+    'https://austinfranklinmusic.com/wp-content/uploads/2021/02/color-logo-no-background-e1670560730434.png',
+    'https://austinfranklinmusic.com/wp-content/uploads/2021/02/color-logo-no-background-e1670560730434.png',
+    'https://austinfranklinmusic.com/wp-content/uploads/2021/02/color-logo-no-background-e1670560730434.png',
   ];
 
   const goToPrevious = () => {
