@@ -14,7 +14,7 @@ const Navbar: React.FC<nav> = ({ isloggedin }) => {
         <div className="logosearchbar">
           <Logo />
           <Searchbar />
-          <button className="contact">Downloads</button>
+          <button className="contact my-downloads">My Downloads</button>
           <button
             className="button-login"
             style={{

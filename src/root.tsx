@@ -6,7 +6,7 @@ import SideNav from "./components/sidenav";
 const Root = () => {
   return (
     <div>
-      <Navbar isloggedin={false}/>
+      <Navbar isloggedin={true}/>
       <main >
         <div className="main-container">
           <SideNav/>
