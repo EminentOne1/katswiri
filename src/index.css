@@ -60,10 +60,12 @@ body {
 img {
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
+ 
 }
 
 img:hover {
   transform: scale(1.2);
+  filter:brightness(0);
 }
 .search-bar {
   box-sizing: border-box;
@@ -145,12 +147,12 @@ img:hover {
   margin-top: 40px;
   align-items: center;
   align-items: flex-start;
-  margin-left: 10px;
 }
 .main-container {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  height: 80vh;
+  gap: 10px;
 }
 .search-bar {
   display: flex;
@@ -353,10 +355,9 @@ img:hover {
   background-color: #f9f9f9;
   white-space: nowrap;
 }
-
 .cards-wrapper {
   display: inline-flex;
-  gap: 10px;
+  gap: 5px;
 }
 
 .card {
@@ -402,15 +403,12 @@ img:hover {
   gap: 10px;
   align-items: flex-end;
   width: 100%;
-
-  padding: 10px;
 }
 .line-content {
   display: flex;
   flex-direction: row;
   gap: 30px;
   align-items: center;
-  padding-top: 10px;
   width: 100%;
 }
 .line {

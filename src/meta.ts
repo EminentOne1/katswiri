@@ -1,7 +1,7 @@
 export const metaData = {
     "/": {
       title: "Home | My React SSR App",
-      description: "Welcome to our React SSR-powered website.",
+      description: "Katswiri, play and upload music seamlesly.",
     },
     "/about": {
       title: "About Us | My React SSR App",
