@@ -10,7 +10,7 @@ const ProfileSect: React.FC<profilesect> = ({ isloggedin }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
-  // Toggle dropdown and set position dynamically
+ 
   const toggleDropdown = () => {
     if (profileRef.current) {
       const rect = profileRef.current.getBoundingClientRect();

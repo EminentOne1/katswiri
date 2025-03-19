@@ -27,7 +27,7 @@ const Navbar: React.FC<nav> = ({ isloggedin }) => {
               alignItems: "center",
             }}
           >
-            Music Distribution channels
+            Distribution channels
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
