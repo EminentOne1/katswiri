@@ -1,0 +1,98 @@
+{
+  "sections": [
+    {
+      "title": "Trending Songs",
+      "type": "songs",
+      "songs": [
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Lost in the Stars",
+          "plays": "1.2M plays",
+          "genre": "Pop"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Midnight Groove",
+          "plays": "980K plays",
+          "genre": "Jazz"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Neon Lights",
+          "plays": "750K plays",
+          "genre": "Electronic"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Midnight Groove",
+          "plays": "980K plays",
+          "genre": "Jazz"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Neon Lights",
+          "plays": "750K plays",
+          "genre": "Electronic"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Midnight Groove",
+          "plays": "980K plays",
+          "genre": "Jazz"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Neon Lights",
+          "plays": "750K plays",
+          "genre": "Electronic"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Midnight Groove",
+          "plays": "980K plays",
+          "genre": "Jazz"
+        },
+        {
+          "image": "https://placehold.co/600x400",
+          "title": "Neon Lights",
+          "plays": "750K plays",
+          "genre": "Electronic"
+        }
+      ]
+    },
+    {
+      "title": "Popular Artists",
+      "type": "artists",
+      "artists": [
+        {
+          "name": "John Doe",
+          "image": "/images/artist1.jpg",
+          "bio": "A rising star in the indie rock scene, known for his soulful lyrics and electrifying performances.",
+          "socials": {
+            "instagram": "https://instagram.com/johndoe",
+            "twitter": "https://twitter.com/johndoe"
+          }
+        },
+        {
+          "name": "Jane Smith",
+          "image": "/images/artist2.jpg",
+          "bio": "A Grammy-winning singer and songwriter with a passion for storytelling through music.",
+          "socials": {
+            "instagram": "https://instagram.com/janesmith",
+            "twitter": "https://twitter.com/janesmith"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Top Mixes",
+      "type": "mixes",
+      "mixes": [
+        "Summer Vibes 2024",
+        "Chillout Lounge",
+        "90s Throwback",
+        "Workout Hits"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const MusicPlayer: React.FC = () => {
+const MusicPlayer: React.FC = (track: any) => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [isMaximized, setIsMaximized] = useState<boolean>(false);

@@ -1,19 +1,20 @@
-import React from "react";
-import { Outlet, Link } from "react-router-dom";
-import Navbar from "./components/navbar";
-import SideNav from "./components/sidenav";
-import MusicPlayer from "./components/musicplayer";
+import React, { Suspense, lazy, useState } from "react";
+import { Outlet } from "react-router-dom";
+
+import Header from "./components/Header";
+import Sidebar from "./components/sidebar";
 
 const Root = () => {
+  const [currentTrack, setCurrentTrack] = useState(null);
+
   return (
-    <div>
-      <Navbar isloggedin={false} />
+    <div className="app-container">
+      <Header logoText="Katswiri" />
       <main>
-        <div className="main-container">
-          <SideNav />
+        <div className="content-wrapper">
+          <Sidebar />
           <Outlet />
         </div>
-        <MusicPlayer />
       </main>
     </div>
   );

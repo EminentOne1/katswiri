@@ -53,7 +53,7 @@ const ScrollableCards: React.FC<ScrollableCardsProps> = ({ cards }) => {
         ))}
       </div>
     </div>
-  );
+  )
 };
 
 export default ScrollableCards;
