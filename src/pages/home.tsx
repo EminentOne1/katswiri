@@ -6,8 +6,8 @@ import NowPlaying from "../components/NowPlaying";
 const HomePage: React.FC = () => {
   return (
     <div className="main-content">
-      <NowPlaying />
-      <FeaturedCards />
+      {/* <NowPlaying /> */}
+      {/* <FeaturedCards /> */}
       <TrendingSongs />
     </div>
   );

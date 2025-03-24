@@ -13,9 +13,10 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
+        id: "Katswiri v 1.0",
         name: "Katswiri",
         short_name: "Katswiri",
-        description: "Katwiri web App by wongani chakaka nyirenda",
+        description: "Katswiri web App by Wongani Chakaka Nyirenda",
         theme_color: "#ffffff",
         background_color: "#ffffff",
         display: "standalone",
@@ -29,6 +30,18 @@ export default defineConfig({
           {
             src: "/images/android-launchericon-512-512.png",
             sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+        screenshots: [
+          {
+            src: "/images/mobile.png",
+            sizes: "432x960",
+            type: "image/png",
+          },
+          {
+            src: "/images/wide-desktop.png",
+            sizes: "2102x1080",
             type: "image/png",
           },
         ],

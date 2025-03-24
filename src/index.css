@@ -283,15 +283,11 @@ body {
 
 .trending-songs {
   padding: 20px;
-  background: linear-gradient(
-    360deg,
-    var(--primary-color) 40.6%,
-    var(--accent-color) 100%
-  );
+  
   border-radius: 20px;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
-  height: 250px;
+  height: 100%;
 }
 
 .section-title {
@@ -310,7 +306,7 @@ body {
 .song-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 11px;
+  gap: 6px;
 }
 
 .song-item {
@@ -466,7 +462,7 @@ body {
 .custom-scrollbar {
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: #5c0f0f #1a1a1a;
+  scrollbar-color: #5c0f0f #000;
   max-height: calc(100vh - 80px);
 }
 
@@ -477,7 +473,7 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #1a1a1a;
+
   border-radius: 10px;
   height: 6px;
 }
@@ -549,4 +545,14 @@ body {
 
 .shimmer-text.small {
   width: 50px;
+}
+.header-top{
+
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-bottom: 1px solid #ffff
 }
