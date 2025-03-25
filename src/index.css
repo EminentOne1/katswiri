@@ -9,12 +9,32 @@
 html,
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background-color: var(--primary-color);
+  background: linear-gradient(-45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
   color: var(--text-color);
   margin: 0;
   padding: 0;
   overflow: hidden;
   height: 100%;
+}
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.2), transparent),
+              radial-gradient(ellipse at bottom right, rgba(255, 255, 255, 0.1), transparent);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .app-container {
@@ -22,7 +42,11 @@ body {
   min-height: 100vh;
   flex-direction: column;
 }
-
+.divider{
+  width: 1px;
+  height: 25px;
+  background-color: white;
+}
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -462,7 +486,7 @@ body {
 .custom-scrollbar {
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: #5c0f0f #000;
+  scrollbar-color: #ffff #000;
   max-height: calc(100vh - 80px);
 }
 

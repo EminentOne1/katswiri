@@ -10,7 +10,7 @@ const Root = () => {
 
   return (
     <div className="app-container">
-       <div className="header-top"><span>Katswiri.mail@gmail.com</span><Divider/><span>0994276727</span></div>
+       <div className="header-top"><span>Katswirimusic.mail@gmail.com</span><Divider/><span>0994276727</span></div>
       <Header logoText="Katswiri" />
       <main>
         <div className="content-wrapper">
