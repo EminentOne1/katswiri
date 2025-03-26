@@ -61,6 +61,7 @@ body::before {
   font-size: 18px;
   font-weight: 700;
   filter: invert(1);
+  width: 70px;
 }
 
 .search-container {
