@@ -30,7 +30,7 @@ interface Section {
 
 const TrendingSongs: React.FC = () => {
   const [sections, setSections] = useState<Section[] | null>(null);
-  const [width, setWidth] = useState(window.innerWidth || null);
+  const [width, setWidth] = useState(window.innerWidth || 0);
 
   useEffect(() => {
     window.addEventListener("resize", (e: any) => {
