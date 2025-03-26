@@ -9,7 +9,7 @@
 html,
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background: linear-gradient(-45deg, var(--primary-color), var(--secondary-color), var(--accent-color), var(--primary-color));
+  background: linear-gradient(-45deg, var(--primary-color),  var(--primary-color));
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
   color: var(--text-color);
@@ -263,6 +263,7 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  height: 500px;
 }
 
 .featured-cards {
@@ -304,14 +305,11 @@ body::before {
   font-size: 14px;
   margin: 0;
 }
-
 .trending-songs {
   padding: 20px;
-  
   border-radius: 20px;
-  overflow: hidden;
   position: relative;
-  height: 100%;
+  height: 100vh;
 }
 
 .section-title {
@@ -338,8 +336,14 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  cursor: pointer;
+  padding: 10px;
 }
+.song-item:hover{
 
+  background-color: #333;
+  border-radius: 20px;
+}
 .song-image {
   width: 100%;
   height: 176px;
@@ -579,4 +583,67 @@ body::before {
   justify-content: center;
   padding: 10px;
   border-bottom: 1px solid #ffff
+}
+/* Artist List with Horizontal Scroll */
+.artist-list {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px; /* Space between items */
+  padding: 10px 0; /* Padding for top and bottom */
+ 
+}
+
+.artist-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px; /* Set the width of each artist card */
+}
+
+.artist-image {
+  width: 80px; /* Set the size of the image */
+  height: 80px; /* Set the height of the image */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image fits within the circle */
+  margin-bottom: 10px; /* Space between the image and name */
+}
+
+.artist-info {
+  text-align: center;
+}
+
+.artist-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.artist-bio {
+  font-size: 12px;
+  color: #666;
+}
+
+.socials {
+  margin-top: 10px;
+}
+
+.socials a {
+  display: block;
+  font-size: 12px;
+  color: #0077b5; /* Instagram style blue */
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+/* Ensure that scrolling works on mobile */
+.horizontal-scroll::-webkit-scrollbar {
+  height: 8px; /* Horizontal scrollbar height */
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
 }

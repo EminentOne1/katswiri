@@ -30,10 +30,20 @@ interface Section {
 
 const TrendingSongs: React.FC = () => {
   const [sections, setSections] = useState<Section[] | null>(null);
+   const[width, setWidth] = useState(0);
 
-  useEffect(() => {
+   window.addEventListener("resize",(e : any)=>{
+
+         setWidth(e.target.innerWidth);
+       
+
+   });
+   useEffect(()=>{
+      window.removeEventListener("resize",(e : any)=>{})
+   },[width])
+     useEffect(() => {
     setTimeout(() => {
-      setSections(data.sections);
+      setSections(data.sections); // Dynamically set sections data
     }, 2000);
   }, []);
 
@@ -42,9 +52,11 @@ const TrendingSongs: React.FC = () => {
       <section className="trending-songs">
         {sections ? (
           sections.map((section, index) => (
-            <div key={index}>
+            <div key={index} className="section">
               <h2 className="section-title">{section.title}</h2>
-              {section.songs && section.songs.length > 0 && (
+
+              {/* Dynamic rendering based on section type */}
+              {section.type === 'songs' && section.songs && section.songs.length > 0 && (
                 <div className="song-list">
                   {section.songs.map((song, idx) => (
                     <div key={idx} className="song-item">
@@ -55,12 +67,36 @@ const TrendingSongs: React.FC = () => {
                       </div>
                       <div className="song-actions">
                         <button className="play-button" aria-label="Play song">
-                          <span className="play-icon" aria-hidden="true"></span>
+                          <img src={"images/play.svg"} alt="play icon" aria-hidden="true" width={15} />
                         </button>
                         <button className="like-button" aria-label="Like song">
-                          <span className="like-icon" aria-hidden="true"></span>
+                          <img src={"images/likes.svg"} alt="like icon" />
                         </button>
                       </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {section.type === 'artists' && section.artists && section.artists.length > 0 && (
+                <div className="artist-list" style={{width:width - 100}}>
+                  {section.artists.map((artist, idx) => (
+                    <div key={idx} className="artist-item">
+                      <img src={artist.image} alt={artist.name} className="artist-image" />
+                      <div className="artist-info">
+                        <h3 className="artist-name">{artist.name}</h3>
+                       
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {section.type === 'mixes' && section.mixes && section.mixes.length > 0 && (
+                <div className="mix-list">
+                  {section.mixes.map((mix, idx) => (
+                    <div key={idx} className="mix-item">
+                      <p>{mix}</p>
                     </div>
                   ))}
                 </div>
