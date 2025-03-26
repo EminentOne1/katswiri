@@ -30,18 +30,20 @@ interface Section {
 
 const TrendingSongs: React.FC = () => {
   const [sections, setSections] = useState<Section[] | null>(null);
-   const[width, setWidth] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth || null);
 
-   window.addEventListener("resize",(e : any)=>{
+  useEffect(() => {
+    window.addEventListener("resize", (e: any) => {
 
-         setWidth(e.target.innerWidth);
-       
+      setWidth(e.target.innerWidth);
 
-   });
-   useEffect(()=>{
-      window.removeEventListener("resize",(e : any)=>{})
-   },[width])
-     useEffect(() => {
+
+    });
+  }, []);
+  useEffect(() => {
+    window.removeEventListener("resize", (e: any) => { })
+  }, [width])
+  useEffect(() => {
     setTimeout(() => {
       setSections(data.sections); // Dynamically set sections data
     }, 2000);
@@ -79,13 +81,13 @@ const TrendingSongs: React.FC = () => {
               )}
 
               {section.type === 'artists' && section.artists && section.artists.length > 0 && (
-                <div className="artist-list" style={{width:width - 100}}>
+                <div className="artist-list" style={{ width: width - 100 }}>
                   {section.artists.map((artist, idx) => (
                     <div key={idx} className="artist-item">
                       <img src={artist.image} alt={artist.name} className="artist-image" />
                       <div className="artist-info">
                         <h3 className="artist-name">{artist.name}</h3>
-                       
+
                       </div>
                     </div>
                   ))}

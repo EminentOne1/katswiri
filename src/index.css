@@ -584,12 +584,12 @@ body::before {
   padding: 10px;
   border-bottom: 1px solid #ffff
 }
-/* Artist List with Horizontal Scroll */
+
 .artist-list {
   display: flex;
   overflow-x: auto;
-  gap: 20px; /* Space between items */
-  padding: 10px 0; /* Padding for top and bottom */
+  gap: 20px; 
+  padding: 10px 0;
  
 }
 
@@ -597,12 +597,12 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 120px; /* Set the width of each artist card */
+  width: 120px; 
 }
 
 .artist-image {
-  width: 80px; /* Set the size of the image */
-  height: 80px; /* Set the height of the image */
+  width: 80px; 
+  height: 80px;
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image fits within the circle */
   margin-bottom: 10px; /* Space between the image and name */
