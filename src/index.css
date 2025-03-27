@@ -17,6 +17,14 @@ body {
   padding: 0;
   overflow: hidden;
   height: 100%;
+  /* Compensate for the reduced scale */
+ 
+}
+.footer-content{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 body::before {
   content: "";
@@ -260,7 +268,7 @@ body::before {
 
 .main-content {
   flex: 1;
-  padding: 20px 24px;
+  padding: 10px 14px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -485,6 +493,36 @@ body::before {
 
   .song-item {
     width: 100%;
+  }
+}
+
+@media (max-width: 1366px) {
+  html {
+    font-size: 90%; /* Reduce font size for smaller screens */
+  }
+
+  .app-container {
+    padding: 10px; /* Adjust padding */
+  }
+
+  .song-item {
+    width: 150px; /* Adjust song item width */
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column; /* Stack header elements */
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 100%; /* Make sidebar full width */
+    margin-bottom: 20px;
+  }
+
+  .song-item {
+    width: 100%; /* Make song items full width */
   }
 }
 

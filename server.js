@@ -6,7 +6,7 @@ import { createServer as createViteServer } from "vite";
 import compression from "compression";
 import dotenv from "dotenv";
 import cors from "cors";
-
+import songsRoutes from "./routes/songs.js";
 dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,7 +16,7 @@ async function createServer() {
   const app = express();
   app.use(compression());
   app.use(cors());
-
+  app.use('/songs',songsRoutes);
   const vite = await createViteServer({
     server: { 
       middlewareMode: "ssr",
@@ -25,8 +25,8 @@ async function createServer() {
   });
 
 
+ 
   app.use(vite.middlewares);
-
  
   app.use("*", async (req, res) => {
     try {
