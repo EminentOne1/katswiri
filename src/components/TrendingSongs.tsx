@@ -33,16 +33,18 @@ const TrendingSongs: React.FC = () => {
   const [width, setWidth] = useState(window.innerWidth || 0);
 
   useEffect(() => {
-    window.addEventListener("resize", (e: any) => {
-
+    const handleResize = (e: any) => {
       setWidth(e.target.innerWidth);
+    };
 
+    window.addEventListener("resize", handleResize);
 
-    });
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
-  useEffect(() => {
-    window.removeEventListener("resize", (e: any) => { })
-  }, [width])
+
   useEffect(() => {
     setTimeout(() => {
       setSections(data.sections); // Dynamically set sections data
@@ -87,7 +89,6 @@ const TrendingSongs: React.FC = () => {
                       <img src={artist.image} alt={artist.name} className="artist-image" />
                       <div className="artist-info">
                         <h3 className="artist-name">{artist.name}</h3>
-
                       </div>
                     </div>
                   ))}
