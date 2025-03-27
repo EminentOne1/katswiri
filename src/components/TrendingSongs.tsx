@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import data from '../utils/data.json'; // Assuming data is in src/data.json
-
+import { useNavigate } from 'react-router-dom';
 interface Song {
   image?: string;
   title: string;
@@ -31,7 +31,7 @@ interface Section {
 const TrendingSongs: React.FC = () => {
   const [sections, setSections] = useState<Section[] | null>(null);
   const [width, setWidth] = useState(window.innerWidth || 0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleResize = (e: any) => {
       setWidth(e.target.innerWidth);
@@ -39,7 +39,7 @@ const TrendingSongs: React.FC = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function to remove the event listener
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -47,7 +47,7 @@ const TrendingSongs: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setSections(data.sections); // Dynamically set sections data
+      setSections(data.sections); 
     }, 2000);
   }, []);
 
@@ -63,7 +63,7 @@ const TrendingSongs: React.FC = () => {
               {section.type === 'songs' && section.songs && section.songs.length > 0 && (
                 <div className="song-list">
                   {section.songs.map((song, idx) => (
-                    <div key={idx} className="song-item">
+                    <div key={idx} className="song-item" onClick={() => navigate(`/songPreview/${idx + 1}`)}>
                       {song.image && <img src={song.image} alt={song.title} className="song-image" />}
                       <div className="song-info">
                         <h3 className="song-title">{song.title}</h3>
