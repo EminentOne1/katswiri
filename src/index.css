@@ -319,6 +319,7 @@ body::before {
   border-radius: 20px;
   position: relative;
   height: 100vh;
+  
 }
 
 .section-title {
@@ -693,7 +694,7 @@ body::before {
 }
 
 .song-preview img {
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
   margin-bottom: 20px;
 }

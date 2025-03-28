@@ -69,12 +69,13 @@ const SongPreview: React.FC = () => {
 
   return (
     <div className="song-preview">
+        
       <h1>{song.title}</h1>
       {song.image && <img src={song.image} alt={song.title} />}
       <p>Plays: {song.plays}</p>
       <p>Genre: {song.genre}</p>
 
-      {/* Custom Audio Player */}
+   
       <div className="audio-player">
         <audio
           ref={audioRef}
