@@ -1,10 +1,11 @@
 import React, { Suspense, lazy, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, Route, Routes } from "react-router-dom";
 
 import Header from "./components/Header";
 import Divider from "./components/components_old/divider";
 import Footer from "./components/footer";
 // import Sidebar from "./components/sidebar";
+import Login from "./pages/Login"; // Import the new Login page
 
 const Root = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -30,8 +31,10 @@ const Root = () => {
       )}
       <main>
         <div className="content-wrapper">
-          {/* <Sidebar /> */}
-          <Outlet />
+       
+ 
+            <Outlet />
+ 
         </div>
         <Footer />
       </main>

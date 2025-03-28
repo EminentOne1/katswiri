@@ -11,10 +11,10 @@ import AdminLayout from "./components/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import Settings from "./pages/admin/Settings";
 import UserManagement from "./pages/admin/UserManagement";
- // Import the login page
+import Login from "./pages/admin/Login"; // Import the login page
 
 const userRole = "admin"; // Replace with actual role from authentication logic
-const isLoggedIn = true; // Replace with actual authentication logic
+const isLoggedIn = false; // Replace with actual authentication logic
 
 const RequireAdmin = ({ children }: { children: JSX.Element }) => {
   if (!isLoggedIn) {
@@ -44,7 +44,7 @@ export const router = createBrowserRouter(
           <Route path="users" element={<UserManagement />} />
           <Route path="settings" element={<Settings />} />
         </Route>
-   {/* Add login route */}
+        <Route path="/admin/login" element={<Login />} />
     </Route>
   )
 );
