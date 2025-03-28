@@ -17,7 +17,7 @@ body {
   padding: 0;
   overflow: hidden;
   height: 100%;
-  /* Compensate for the reduced scale */
+
  
 }
 .footer-content{
@@ -268,7 +268,7 @@ body::before {
 
 .main-content {
   flex: 1;
-  padding: 10px 14px;
+
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -690,7 +690,7 @@ body::before {
 
 .song-preview {
   text-align: center;
-  padding: 20px;
+
 }
 
 .song-preview img {
