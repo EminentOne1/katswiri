@@ -34,7 +34,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSubmit }) => {
 
       const { token } = await response.json();
       localStorage.setItem('token', token);
-      navigate('/dashboard');
+      navigate('/admin'); // Navigate to the dashboard after successful login
     } catch (error: any) {
       setErrorMsg(error.message);
     } finally {

@@ -175,15 +175,161 @@ body::after {
   font-size: 16px;
   cursor: pointer;
 }
-
-.content-wrapper {
+.submit-album-page {
+  padding: 20px;
+}
+.dashboard {
   display: flex;
-  flex-direction: row;
-  /* width: 100vh; */
-  height: -webkit-fill-available;
-  justify-content: center;
+  background-color: #121417;
+}
+.sidebar {
+  display: flex;
+  width: 320px;
+  flex-direction: column;
+  padding: 16px;
+  background-color: #121417;
 }
 
+.profile {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.profile-image {
+ object-fit: fill;
+  border-radius: 20px;
+  filter: invert(1);
+}
+
+.profile-name {
+  color: #fff;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 21px;
+  transition: background-color 0.2s;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  min-width: 288px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: flex;
+
+  gap: 16px;
+
+  gap: 20px;
+}
+
+.section-title {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+
+  padding: 10;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 250px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.quick-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.quick-action {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: center;
+  height: 40px;
+  min-width: 84px;
+  max-width: 480px;
+  padding: 0px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.quick-action:hover {
+  opacity: 0.9;
+}
+
+.primary {
+  background-color: #2194f2;
+}
+
+.secondary {
+  background-color: #293038;
+}
+
+.actions-grid {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  flex: 1;
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.nav-item:hover {
+  background-color: #293038;
+}
+
+.nav-item.active {
+  background-color: #293038;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+}
 .nav-icon-button:hover,
 .nav-icon-button:focus {
   background-color: var(--accent-color);
@@ -198,11 +344,7 @@ body::after {
 
 .sidebar {
   width: 268px;
-  background: linear-gradient(
-    180deg,
-    var(--primary-color) 54.6%,
-    var(--accent-color) 100%
-  );
+
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -371,7 +513,6 @@ body::after {
   color: var(--text-color);
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 16px;
 }
 
 .section-title-seeall {
@@ -1409,7 +1550,7 @@ img:hover {
 .sign-in-button.loading {
   background-color: #e5e5e5;
   cursor: not-allowed;
-  color:var(--secondary-color);
+  color: var(--secondary-color);
 }
 
 .spinner {

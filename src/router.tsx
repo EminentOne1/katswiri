@@ -8,12 +8,12 @@ import SubmitSingle from "./pages/SubmitSingle";
 import SubmitAlbum from "./pages/SubmitAlbum";
 import { JSX } from "react";
 import AdminLayout from "./components/AdminLayout";
-import Dashboard from "./pages/admin/Dashboard";
+import {DashboardContent} from "./pages/admin/Dashboard";
 import Settings from "./pages/admin/Settings";
 import UserManagement from "./pages/admin/UserManagement";
 import Login from "./pages/admin/Login"; // Import the login page
 
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from "jwt-decode"; // Fix import (remove curly braces)
 
 const RequireAdmin = ({ children }: { children: JSX.Element }) => {
   const token = localStorage.getItem('token');
@@ -23,9 +23,14 @@ const RequireAdmin = ({ children }: { children: JSX.Element }) => {
 
   try {
     const decodedToken = jwtDecode<{ userId: string; role: string }>(token); // Decode the token
-    const userRole = decodedToken.role;
+    const userRole = decodedToken.role; // Access the role directly
+    console.log("Decoded token:", decodedToken); // Log the decoded token for debugging
 
-    return userRole === "admin" ? children : <Navigate to="/admin" />;
+    if (userRole === "admin") {
+      return children;
+    }
+    console.log("User is not an admin:", userRole || "No role found in token");
+    return <Navigate to="/" />;
   } catch (error) {
     console.error("Invalid token:", error);
     return <Navigate to="/admin/login" />;
@@ -42,14 +47,16 @@ export const router = createBrowserRouter(
       <Route path="/submit-single" element={<SubmitSingle/>} />
        <Route path="/submit-album" element={<SubmitAlbum />} />
        <Route
-          path="/admin/*"
+          path="/admin"
           element={
             <RequireAdmin>
-              <AdminLayout />
+              <>
+                <AdminLayout />
+              </>
             </RequireAdmin>
           }
         >
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<DashboardContent />} />
           <Route path="users" element={<UserManagement />} />
           <Route path="settings" element={<Settings />} />
         </Route>

@@ -1,4 +1,6 @@
-import { createToken } from "../src/utils/session.js";
+import jwt from "jsonwebtoken"; // Import jsonwebtoken
+
+const SECRET_KEY = "your-secret-key"; // Replace with a secure secret key
 
 const loginMiddleware = async (req, res) => {
   if (req.method !== "POST") {
@@ -8,7 +10,7 @@ const loginMiddleware = async (req, res) => {
   const { email, password } = req.body;
 
   if (email === "admin@katswiri.com" && password === "password") {
-    const token = await createToken({ userId: "adminUserId", role: "admin" }); 
+    const token = jwt.sign({ userId: "adminUserId", role: "admin" }, SECRET_KEY, { expiresIn: "1h" }); // Ensure role is at the top level
     return res.status(200).json({ token });
   }
 
