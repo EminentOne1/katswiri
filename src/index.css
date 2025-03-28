@@ -9,7 +9,11 @@
 html,
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background: linear-gradient(-45deg, var(--primary-color), var(--primary-color));
+  background: linear-gradient(
+    -45deg,
+    var(--primary-color),
+    var(--primary-color)
+  );
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
   color: var(--text-color);
@@ -17,8 +21,6 @@ body {
   padding: 0;
   overflow: hidden;
   height: 100%;
-
-
 }
 
 .footer-content {
@@ -37,8 +39,16 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.2), transparent),
-    radial-gradient(ellipse at bottom right, rgba(255, 255, 255, 0.1), transparent);
+  background: radial-gradient(
+      ellipse at top left,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
   mix-blend-mode: overlay;
   pointer-events: none;
 }
@@ -97,10 +107,6 @@ body::after {
   width: 70px;
 }
 
-
-
-
-
 .search-button {
   background: none;
   border: none;
@@ -154,17 +160,13 @@ body::after {
 }
 
 .login-container {
+  width: max-content;
+  /* margin-top: 50px; */
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f9f9f9;
-}
-
-.login-container h1 {
-  margin-bottom: 20px;
-  width: 100%;
+  align-items: center;
+  height: 80vh;
 }
 
 .login-container button {
@@ -196,9 +198,11 @@ body::after {
 
 .sidebar {
   width: 268px;
-  background: linear-gradient(180deg,
-      var(--primary-color) 54.6%,
-      var(--accent-color) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--primary-color) 54.6%,
+    var(--accent-color) 100%
+  );
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -357,12 +361,10 @@ body::after {
 }
 
 .trending-songs {
-
   border-radius: 20px;
   position: relative;
   height: 100vh;
   padding-left: 30px;
-
 }
 
 .section-title {
@@ -396,7 +398,6 @@ body::after {
 }
 
 .song-item:hover {
-
   background-color: #333;
   border-radius: 20px;
 }
@@ -549,7 +550,6 @@ body::after {
     font-size: 90%;
     /* Reduce font size for smaller screens */
   }
-
 }
 
 @media (max-width: 768px) {
@@ -642,7 +642,6 @@ body::after {
 }
 
 @media (max-width: 480px) {
-
   .page-title,
   .section-title {
     font-size: 20px;
@@ -685,7 +684,6 @@ body::after {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-
   border-radius: 10px;
   height: 6px;
 }
@@ -771,21 +769,19 @@ img:hover {
 }
 
 .header-top {
-
   display: flex;
   flex-direction: row;
   gap: 5px;
   align-items: center;
   justify-content: center;
   padding: 10px;
-  border-bottom: 1px solid #ffff
+  border-bottom: 1px solid #ffff;
 }
 
 .artist-list {
   display: flex;
   overflow-x: auto;
   gap: 20px;
-
 }
 
 .artist-item {
@@ -850,7 +846,6 @@ img:hover {
 
 .song-preview {
   text-align: center;
-
 }
 
 .song-preview img {
@@ -904,17 +899,14 @@ img:hover {
 }
 
 .search-container {
-
   display: flex;
   align-items: center;
   border-radius: 12px;
-
 
   background-color: var(--secondary-color);
 }
 
 .search-input {
-
   border: none;
   color: var(--text-color-muted);
   font-size: 16px;
@@ -969,14 +961,12 @@ img:hover {
 }
 
 .album:hover {
-
   background-color: var(--accent-color);
   color: var(--text-color);
   transition: ease-in 2ms;
 }
 
 .single:hover {
-
   background-color: var(--accent-color);
   color: var(--text-color);
   transition: ease-in 2ms;
@@ -1335,67 +1325,139 @@ img:hover {
   color: #fff;
 }
 
-.login-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f0f4f8;
-  padding: 20px;
+.sign-in-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111;
   text-align: center;
-  font-family: Arial, sans-serif;
+  margin-bottom: 24px;
 }
 
-.login-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+.sign-in-description {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 500;
   color: #333;
 }
 
-.login-container p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  color: #666;
-}
-
-.login-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.input-control {
   width: 100%;
-  max-width: 300px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  color: #333;
 }
 
-.login-buttons button {
-  padding: 10px 20px;
-  font-size: 1rem;
+.input-control::placeholder {
+  color: #999;
+}
+
+.input-control:focus {
+  outline: none;
+  border-color: #111;
+}
+
+.input-error {
+  border-color: #ff4d4d;
+}
+
+.error-message {
+  font-size: 12px;
+  color: #ff4d4d;
+}
+
+.sign-in-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: #111;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.google-login {
-  background-color: #4285f4;
-  color: white;
+.sign-in-button:hover {
+  background-color: #333;
 }
 
-.google-login:hover {
-  background-color: #357ae8;
+.sign-in-button.loading {
+  background-color: #e5e5e5;
+  cursor: not-allowed;
+  color:var(--secondary-color);
 }
 
-.sso-login {
-  background-color: #34a853;
-  color: white;
+.spinner {
+  animation: spin 1s linear infinite;
+  height: 16px;
+  width: 16px;
 }
 
-.sso-login:hover {
-  background-color: #2c8c47;
+.spinner-track {
+  opacity: 0.25;
 }
 
-.additional-login-methods {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  color: #999;
+.spinner-head {
+  opacity: 0.75;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.terms-policy {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.terms-link,
+.policy-link {
+  color: #111;
+  text-decoration: underline;
+}
+
+.terms-link:hover,
+.policy-link:hover {
+  color: #333;
+}
+
+@media (max-width: 480px) {
+  .sign-in-container {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }

@@ -7,6 +7,11 @@ import compression from "compression";
 import dotenv from "dotenv";
 import cors from "cors";
 import songsRoutes from "./routes/songs.js";
+import adminRoutes from './routes/adminroutes.js';
+import loginMiddleware from './middleware/authMiddleware.js';
+import { verifyToken } from './src/utils/session.js';
+import sessionManager from './middleware/sessionManager.js'; 
+import authRoutes from './routes/authRoutes.js'; 
 dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -14,18 +19,23 @@ const PORT = process.env.PORT || 3000;
 
 async function createServer() {
   const app = express();
+  app.use(express.json()); 
   app.use(compression());
-  app.use(cors());
+  app.use(cors({
+    origin: ['http://localhost:5000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }));
   app.use('/songs',songsRoutes);
+  app.use('/api/auth', authRoutes);
+  app.use('/adminroutes', sessionManager, adminRoutes);
+
   const vite = await createViteServer({
     server: { 
       middlewareMode: "ssr",
       hmr: { protocol: "ws", host: "localhost" },
     },
   });
-
-
- 
   app.use(vite.middlewares);
  
   app.use("*", async (req, res) => {

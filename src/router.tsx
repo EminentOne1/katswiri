@@ -13,14 +13,23 @@ import Settings from "./pages/admin/Settings";
 import UserManagement from "./pages/admin/UserManagement";
 import Login from "./pages/admin/Login"; // Import the login page
 
-const userRole = "admin"; // Replace with actual role from authentication logic
-const isLoggedIn = false; // Replace with actual authentication logic
+import { jwtDecode } from 'jwt-decode';
 
 const RequireAdmin = ({ children }: { children: JSX.Element }) => {
-  if (!isLoggedIn) {
+  const token = localStorage.getItem('token');
+  if (!token) {
     return <Navigate to="/admin/login" />;
   }
-  return userRole === "admin" ? children : <Navigate to="/" />;
+
+  try {
+    const decodedToken = jwtDecode<{ userId: string; role: string }>(token); // Decode the token
+    const userRole = decodedToken.role;
+
+    return userRole === "admin" ? children : <Navigate to="/admin" />;
+  } catch (error) {
+    console.error("Invalid token:", error);
+    return <Navigate to="/admin/login" />;
+  }
 };
 
 export const router = createBrowserRouter(
