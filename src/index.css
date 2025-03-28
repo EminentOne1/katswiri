@@ -9,7 +9,7 @@
 html,
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
-  background: linear-gradient(-45deg, var(--primary-color),  var(--primary-color));
+  background: linear-gradient(-45deg, var(--primary-color), var(--primary-color));
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
   color: var(--text-color);
@@ -18,14 +18,18 @@ body {
   overflow: hidden;
   height: 100%;
 
- 
+
 }
-.footer-content{
-  display:flex;
+
+.footer-content {
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  width: 100%;
 }
+
 body::before {
   content: "";
   position: absolute;
@@ -34,15 +38,23 @@ body::before {
   width: 100%;
   height: 100%;
   background: radial-gradient(ellipse at top left, rgba(255, 255, 255, 0.2), transparent),
-              radial-gradient(ellipse at bottom right, rgba(255, 255, 255, 0.1), transparent);
+    radial-gradient(ellipse at bottom right, rgba(255, 255, 255, 0.1), transparent);
   mix-blend-mode: overlay;
   pointer-events: none;
 }
 
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .app-container {
@@ -50,11 +62,13 @@ body::before {
   min-height: 100vh;
   flex-direction: column;
 }
-.divider{
+
+.divider {
   width: 1px;
   height: 25px;
   background-color: white;
 }
+
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -142,10 +156,12 @@ body::before {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
 .content-wrapper {
   display: flex;
   flex-direction: row;
 }
+
 .nav-icon-button:hover,
 .nav-icon-button:focus {
   background-color: var(--accent-color);
@@ -160,11 +176,9 @@ body::before {
 
 .sidebar {
   width: 268px;
-  background: linear-gradient(
-    180deg,
-    var(--primary-color) 54.6%,
-    var(--accent-color) 100%
-  );
+  background: linear-gradient(180deg,
+      var(--primary-color) 54.6%,
+      var(--accent-color) 100%);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -200,10 +214,12 @@ body::before {
   font-size: 14px;
   margin: 0;
 }
+
 .legal-links {
   flex: 0.9;
   align-content: end;
 }
+
 .navigation-menu ul,
 .legal-links ul {
   list-style-type: none;
@@ -230,6 +246,7 @@ body::before {
 .legal-link:focus {
   background-color: var(--secondary-color);
 }
+
 .legal-link img {
   transition: filter 0.3s ease-in-out;
 }
@@ -240,9 +257,11 @@ body::before {
   padding: 2px;
   border-radius: 80px;
 }
+
 .nav-item img {
   transition: filter 0.3s ease-in-out;
 }
+
 .nav-item:focus img {
   background-color: var(--accent-color);
   padding: 2px;
@@ -251,6 +270,7 @@ body::before {
   justify-content: center;
   align-items: center;
 }
+
 .nav-item:hover img {
   background-color: var(--accent-color);
   padding: 2px;
@@ -259,6 +279,7 @@ body::before {
   justify-content: center;
   align-items: center;
 }
+
 .nav-icon,
 .legal-icon {
   width: 24px;
@@ -314,12 +335,14 @@ body::before {
   font-size: 14px;
   margin: 0;
 }
+
 .trending-songs {
-  padding: 20px;
+
   border-radius: 20px;
   position: relative;
   height: 100vh;
-  
+  padding-left: 30px;
+
 }
 
 .section-title {
@@ -328,6 +351,7 @@ body::before {
   font-weight: 700;
   margin-bottom: 16px;
 }
+
 .section-title-seeall {
   color: var(--text-color);
   font-size: 12px;
@@ -335,6 +359,7 @@ body::before {
   font-style: normal;
   margin-bottom: 16px;
 }
+
 .song-list {
   display: flex;
   flex-wrap: wrap;
@@ -347,13 +372,15 @@ body::before {
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
-  padding: 10px;
+  padding: 4px;
 }
-.song-item:hover{
+
+.song-item:hover {
 
   background-color: #333;
   border-radius: 20px;
 }
+
 .song-image {
   width: 100%;
   height: 176px;
@@ -499,31 +526,28 @@ body::before {
 
 @media (max-width: 1366px) {
   html {
-    font-size: 90%; /* Reduce font size for smaller screens */
+    font-size: 90%;
+    /* Reduce font size for smaller screens */
   }
 
-  .app-container {
-    padding: 10px; /* Adjust padding */
-  }
-
-  .song-item {
-    width: 150px; /* Adjust song item width */
-  }
 }
 
 @media (max-width: 768px) {
   .app-header {
-    flex-direction: column; /* Stack header elements */
+    flex-direction: column;
+    /* Stack header elements */
     padding: 10px;
   }
 
   .sidebar {
-    width: 100%; /* Make sidebar full width */
+    width: 100%;
+    /* Make sidebar full width */
     margin-bottom: 20px;
   }
 
   .song-item {
-    width: 100%; /* Make song items full width */
+    width: 100%;
+    /* Make song items full width */
   }
 }
 
@@ -532,6 +556,9 @@ body::before {
   scrollbar-width: thin;
   scrollbar-color: #ffff #000;
   max-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -554,11 +581,13 @@ body::before {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #8b0f0f;
 }
+
 /* Shimmer Effect */
 @keyframes shimmer {
   0% {
     background-position: -200px 0;
   }
+
   100% {
     background-position: 200px 0;
   }
@@ -614,11 +643,21 @@ body::before {
 .shimmer-text.small {
   width: 50px;
 }
-.header-top{
+
+img {
+  cursor: pointer;
+}
+
+img:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.header-top {
 
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 5px;
   align-items: center;
   justify-content: center;
   padding: 10px;
@@ -628,24 +667,26 @@ body::before {
 .artist-list {
   display: flex;
   overflow-x: auto;
-  gap: 20px; 
-  padding: 10px 0;
- 
+  gap: 20px;
+
 }
 
 .artist-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 120px; 
+  width: 120px;
 }
 
 .artist-image {
-  width: 80px; 
+  width: 80px;
   height: 80px;
-  border-radius: 50%; /* Make the image circular */
-  object-fit: cover; /* Ensure the image fits within the circle */
-  margin-bottom: 10px; /* Space between the image and name */
+  border-radius: 50%;
+  /* Make the image circular */
+  object-fit: cover;
+  /* Ensure the image fits within the circle */
+  margin-bottom: 10px;
+  /* Space between the image and name */
 }
 
 .artist-info {
@@ -669,14 +710,16 @@ body::before {
 .socials a {
   display: block;
   font-size: 12px;
-  color: #0077b5; /* Instagram style blue */
+  color: #0077b5;
+  /* Instagram style blue */
   text-decoration: none;
   margin-bottom: 5px;
 }
 
 /* Ensure that scrolling works on mobile */
 .horizontal-scroll::-webkit-scrollbar {
-  height: 8px; /* Horizontal scrollbar height */
+  height: 8px;
+  /* Horizontal scrollbar height */
 }
 
 .horizontal-scroll::-webkit-scrollbar-thumb {
@@ -730,4 +773,44 @@ body::before {
 .time-info {
   font-size: 14px;
   color: var(--text-color-muted);
+}
+
+.submit-music {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.single,
+.album {
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: var(--secondary-color);
+  height: 300px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.album:hover {
+
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  transition: ease-in 2ms;
+}
+
+.single:hover {
+
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  transition: ease-in 2ms;
 }
