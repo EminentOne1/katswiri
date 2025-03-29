@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useState } from "react";
 import { Outlet, useLocation, Route, Routes } from "react-router-dom";
 
 import Header from "./components/Header";
-import Divider from "./components/components_old/divider";
+import Divider from "./components/divider";
 import Footer from "./components/footer";
 
 const Root = () => {

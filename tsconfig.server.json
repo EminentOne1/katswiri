@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/server",
+    "rootDir": "./", // Set rootDir to the project root to include server.js
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx" // Use react-jsx to enable automatic JSX runtime
+  },
+  "include": ["src/**/*", "server.js"] // Ensure all necessary files are included
+}

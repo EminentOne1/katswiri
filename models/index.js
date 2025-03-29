@@ -9,12 +9,15 @@ import SongMix from './SongMix.js';
 import Notification from './Notification.js';
 import User from './User.js';
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const sequelize = new Sequelize({
   dialect: 'mysql', 
   host: 'localhost',
   username: 'root',
   password: '',
   database: 'katswiri',
+  logging: !isProduction, 
 });
 
 
@@ -29,7 +32,7 @@ Genre.initModel(sequelize);
 Notification.initModel(sequelize);
 User.initModel(sequelize);
 
-await sequelize.sync({ force: false, alter: true });
+//await sequelize.sync({ force: false, alter: true });
 Artist.hasMany(Song, { foreignKey: 'artistId' });
 
 
