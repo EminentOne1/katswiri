@@ -30,7 +30,12 @@ const SubmitAlbum: React.FC = () => {
 
   return (
     <div className="submit-album-page">
+      <div style={{ display: 'flex',gap:"10px",flexDirection:'row', justifyContent: 'space-between', alignItems: 'center' }}>
       <h1>Submit Album</h1>
+      <button type="button" className="add-song-button-hidden" onClick={handleAddSong}>
+            + Add a song
+          </button>
+          </div>
       <div className="submit-album-container">
       <div className="form-group">
             <label htmlFor="artCover">Upload Art Cover</label>
@@ -98,11 +103,13 @@ const SubmitAlbum: React.FC = () => {
                 required
               />
             </div>
+          
             <button type="submit" className="submit-button">Submit Album</button>
+        
           </form>
         </div>
         <div className="songs-section">
-          <h2>Songs</h2>
+          
           <div className="songs-list">
             {songs.map((song, index) => (
               <div key={index} className="song-item">
@@ -118,13 +125,14 @@ const SubmitAlbum: React.FC = () => {
                   onChange={(e) => handleSongChange(index, 'file', e.target.files ? e.target.files[0] : null)}
                   required
                 />
+                
               </div>
             ))}
           </div>
-         
+          
         </div>
         <button type="button" className="add-song-button" onClick={handleAddSong}>
-            + Add Song
+            + Add a song
           </button>
       </div>
       

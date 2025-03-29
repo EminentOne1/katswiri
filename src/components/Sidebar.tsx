@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
+import { Navigate,useNavigate } from "react-router-dom";
 
 export const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <nav className="sidebar">
       <div className="profile">
@@ -9,12 +11,13 @@ export const Sidebar: React.FC = () => {
           src="/images/home.png"
           alt="Admin profile"
           className="profile-image"
+          onClick={()=>navigate("/")}
         />
 
       </div>
 
       <div className="nav-links">
-        <a href="/dashboard" className="nav-item active" aria-current="page">
+        <a href="/admin/dashboard" className="nav-item active" aria-current="page">
           <svg
             width="24"
             height="24"

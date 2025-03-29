@@ -18,6 +18,8 @@ export const SignInForm: React.FC<SignInFormProps> = ({ onSubmit }) => {
     event.preventDefault();
     setLoading(true);
     setErrorMsg('');
+
+    
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',

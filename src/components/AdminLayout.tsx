@@ -1,14 +1,15 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import { Sidebar } from './Sidebar';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { Sidebar } from "./Sidebar";
+
 const AdminLayout: React.FC = () => {
   return (
-    <div className="dashboard">
-      <aside>
-      <Sidebar />
+    <div className="admin-layout">
+      <aside className="admin-sidebar">
+       <Sidebar/>
       </aside>
-      <main >
-        <Outlet />
+      <main className="admin-content">
+        <Outlet /> 
       </main>
     </div>
   );

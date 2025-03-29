@@ -1,26 +1,35 @@
-import React from 'react';
+import React from "react";
 
-import { useNavigate } from 'react-router-dom';
-import NavigationIcons from './NavigationIcons';
-
-
+import { useNavigate } from "react-router-dom";
+import NavigationIcons from "./NavigationIcons";
 
 interface HeaderProps {
   logoText: string;
   handlesearchtext: (searchText: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ logoText,handlesearchtext}) => {
+const Header: React.FC<HeaderProps> = ({ logoText, handlesearchtext }) => {
   const Navigate = useNavigate();
   const [isVisible, setVissibility] = React.useState(false);
   const [searchText, setSearchText] = React.useState<string>("");
 
- 
+  const handleSearchTextChange = (text: string) => {
+    setSearchText(text);
+  };
   return (
     <header className="app-header">
-      <img src='images/home.png' className="logo" alt={logoText} onClick={() => Navigate("/")} />
+      <img
+        src="images/home.png"
+        className="logo"
+        alt={logoText}
+        onClick={() => Navigate("/")}
+      />
       <div className="search-container">
-        <button className="search-button" aria-label="Perform search" onClick={() => setVissibility(true)}>
+        <button
+          className="search-button"
+          aria-label="Perform search"
+          onClick={() => setVissibility(true)}
+        >
           <svg
             width="24"
             height="24"
@@ -36,13 +45,22 @@ const Header: React.FC<HeaderProps> = ({ logoText,handlesearchtext}) => {
             />
           </svg>
         </button>
-        <input
-          type="text"
-          placeholder="Search..."
-          className={`search-input ${isVisible ? "visible" : ""}`}
-          value={searchText}
-          onChange={(e) => handlesearchtext(e.target.value)}
-        />
+        <div className={`search-input ${isVisible ? "visible" : ""}`}>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="search"
+            value={searchText}
+            onChange={(e) => handleSearchTextChange(e.target.value)}
+          />
+          <img
+            src="images/close.svg"
+            alt="Close search"
+            className="close-icon"
+            onClick={() =>{ setVissibility(false); setSearchText("")}}
+            style={{ filter: "invert(1)" }}
+          />
+        </div>
       </div>
       {/* <nav className="header-nav">
         <ul className="nav-list">

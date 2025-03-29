@@ -10,7 +10,7 @@ const SubmitSingle: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
+
     console.log({ title, artist, genre, releaseDate, file, artCover });
   };
 

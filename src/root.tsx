@@ -9,7 +9,7 @@ const Root = () => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
-
+ const [typedValue,setTypedValue]=useState("");
   return (
     <div className="app-container">
       {!isAdminRoute && (
@@ -22,20 +22,17 @@ const Root = () => {
       {!isAdminRoute && (
         <Header
           logoText={""}
-          handlesearchtext={function (searchText: string): void {
-            // ...existing code...
-          }}
+          handlesearchtext={function (searchText: string): void {setTypedValue(searchText)}}
+          
         />
       )}
       <main>
         <div className="content-wrapper">
-       
- 
-            <Outlet />
- 
+          <Outlet />
         </div>
-        <Footer />
+        
       </main>
+      <Footer />
     </div>
   );
 };

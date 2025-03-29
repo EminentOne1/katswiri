@@ -1,4 +1,9 @@
-import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+} from "react-router-dom";
 import Root from "./root";
 import Home from "./pages/home";
 import SongPreview from "./components/SongPreview";
@@ -8,24 +13,23 @@ import SubmitSingle from "./pages/SubmitSingle";
 import SubmitAlbum from "./pages/SubmitAlbum";
 import { JSX } from "react";
 import AdminLayout from "./components/AdminLayout";
-import {DashboardContent} from "./pages/admin/Dashboard";
+import { DashboardContent } from "./pages/admin/Dashboard";
 import Settings from "./pages/admin/Settings";
 import UserManagement from "./pages/admin/UserManagement";
-import Login from "./pages/admin/Login"; // Import the login page
+import Login from "./pages/admin/Login"; 
 
-import {jwtDecode} from "jwt-decode"; // Fix import (remove curly braces)
+import { jwtDecode } from "jwt-decode"; 
 
 const RequireAdmin = ({ children }: { children: JSX.Element }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (!token) {
     return <Navigate to="/admin/login" />;
   }
 
   try {
-    const decodedToken = jwtDecode<{ userId: string; role: string }>(token); // Decode the token
-    const userRole = decodedToken.role; // Access the role directly
-    console.log("Decoded token:", decodedToken); // Log the decoded token for debugging
-
+    const decodedToken = jwtDecode<{ userId: string; role: string }>(token); 
+    const userRole = decodedToken.role; 
+    console.log("Decoded token:", decodedToken);
     if (userRole === "admin") {
       return children;
     }
@@ -42,25 +46,24 @@ export const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
       <Route path="/songPreview/:id" element={<SongPreview />} />
-      <Route path="/charts" element={<Charts/>} />
-      <Route path="/submit-music" element={<Submitmusic/>} />
-      <Route path="/submit-single" element={<SubmitSingle/>} />
-       <Route path="/submit-album" element={<SubmitAlbum />} />
-       <Route
-          path="/admin"
-          element={
-            <RequireAdmin>
-              <>
-                <AdminLayout />
-              </>
-            </RequireAdmin>
-          }
-        >
-          <Route path="dashboard" element={<DashboardContent />} />
-          <Route path="users" element={<UserManagement />} />
-          <Route path="settings" element={<Settings />} />
-        </Route>
-        <Route path="/admin/login" element={<Login />} />
+      <Route path="/charts" element={<Charts />} />
+      <Route path="/submit-music" element={<Submitmusic />} />
+      <Route path="/submit-single" element={<SubmitSingle />} />
+      <Route path="/submit-album" element={<SubmitAlbum />} />
+      <Route
+        path="/admin"
+        element={
+          <RequireAdmin>
+            <AdminLayout />
+          </RequireAdmin>
+        }
+      >
+        <Route index element={<Navigate to="dashboard" replace />} />
+        <Route path="dashboard" element={<DashboardContent />} />
+        <Route path="users" element={<UserManagement />} />
+        <Route path="settings" element={<Settings />} />
+      </Route>
+      <Route path="/admin/login" element={<Login />} />
     </Route>
   )
 );
