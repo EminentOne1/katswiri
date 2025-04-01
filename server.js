@@ -38,7 +38,7 @@ async function createServer() {
   app.use(compression());
   app.use(
     cors({
-      origin: ["http://localhost:5173"],
+      origin: ["http://localhost:5000"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
     })
@@ -48,8 +48,7 @@ async function createServer() {
   app.use("/api/v1/auth", authRoutes);
   app.use("/api/v1/adminroutes", sessionManager, adminRoutes);
 
-  const isProduction = process.env.NODE_ENV === "development"; // Corrected condition
-
+  const isProduction = process.env.NODE_ENV === "development";
   if (isProduction) {
     app.use(serveStatic(path.resolve(__dirname, "dist/client")));
     app.use("*", async (req, res) => {

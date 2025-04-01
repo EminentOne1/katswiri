@@ -58,7 +58,7 @@ const TrendingSongs: React.FC = () => {
           sections.map((section, index) => (
             <div key={index} className="section">
               <h2 className="section-title">{section.title}</h2>
-
+                     {section.title === "Trending Songs" && (<span style={{fontSize:"12px"}}>Discover the most played songs</span>)}
               {/* Dynamic rendering based on section type */}
               {section.type === 'songs' && section.songs && section.songs.length > 0 && (
                 <div className="song-list">

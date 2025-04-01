@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken"; // Import jsonwebtoken
+import jwt from "jsonwebtoken"; 
 
-const SECRET_KEY = "your-secret-key"; // Replace with a secure secret key
+const SECRET_KEY = "your-secret-key"; 
 
 const loginMiddleware = async (req, res) => {
   if (req.method !== "POST") {
@@ -10,7 +10,7 @@ const loginMiddleware = async (req, res) => {
   const { email, password } = req.body;
 
   if (email === "admin@katswiri.com" && password === "password") {
-    const token = jwt.sign({ userId: "adminUserId", role: "admin" }, SECRET_KEY, { expiresIn: "1h" }); // Ensure role is at the top level
+    const token = jwt.sign({ userId: "adminUserId", role: "admin" }, SECRET_KEY, { expiresIn: "1h" }); 
     return res.status(200).json({ token });
   }
 

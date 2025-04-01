@@ -2,6 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const NavigationIcons: React.FC = () => {
+  const [isVisible, setVissibility] = React.useState(false);
+  const [searchText, setSearchText] = React.useState<string>("");
+
+  const handleSearchTextChange = (text: string) => {
+    setSearchText(text);
+  };
   const Navigate = useNavigate();
   return (
     <div className="nav-icons">
@@ -13,41 +19,90 @@ const NavigationIcons: React.FC = () => {
           gap: "10px",
         }}
       >
-            <nav
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
-        <button className="nav-icon-button" aria-label="Downloads" onClick={() =>Navigate("/charts")}>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clip-path="url(#clip0_157_398)">
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M20.25 3.75H12.75V2.25C12.75 1.83579 12.4142 1.5 12 1.5C11.5858 1.5 11.25 1.83579 11.25 2.25V3.75H3.75C2.92157 3.75 2.25 4.42157 2.25 5.25V16.5C2.25 17.3284 2.92157 18 3.75 18H7.44L5.41406 20.5312C5.15518 20.8549 5.20765 21.3271 5.53125 21.5859C5.85485 21.8448 6.32705 21.7924 6.58594 21.4688L9.36 18H14.64L17.4141 21.4688C17.6729 21.7924 18.1451 21.8448 18.4688 21.5859C18.7924 21.3271 18.8448 20.8549 18.5859 20.5312L16.56 18H20.25C21.0784 18 21.75 17.3284 21.75 16.5V5.25C21.75 4.42157 21.0784 3.75 20.25 3.75ZM20.25 16.5H3.75V5.25H20.25V16.5ZM9.75 11.25V13.5C9.75 13.9142 9.41421 14.25 9 14.25C8.58579 14.25 8.25 13.9142 8.25 13.5V11.25C8.25 10.8358 8.58579 10.5 9 10.5C9.41421 10.5 9.75 10.8358 9.75 11.25ZM12.75 9.75V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9.75C11.25 9.33579 11.5858 9 12 9C12.4142 9 12.75 9.33579 12.75 9.75ZM15.75 8.25V13.5C15.75 13.9142 15.4142 14.25 15 14.25C14.5858 14.25 14.25 13.9142 14.25 13.5V8.25C14.25 7.83579 14.5858 7.5 15 7.5C15.4142 7.5 15.75 7.83579 15.75 8.25Z"
-                fill="#C4C4C4"
+        <nav
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
+          {" "}
+          <div className="search-container">
+            <button
+              className="search-button"
+              aria-label="Perform search"
+              onClick={() => setVissibility(true)}
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M21.5306 20.4694L16.8366 15.7762C19.6629 12.383 19.3204 7.36693 16.0591 4.38935C12.7978 1.41176 7.77134 1.526 4.64867 4.64867C1.526 7.77134 1.41176 12.7978 4.38935 16.0591C7.36693 19.3204 12.383 19.6629 15.7762 16.8366L20.4694 21.5306C20.7624 21.8237 21.2376 21.8237 21.5306 21.5306C21.8237 21.2376 21.8237 20.7624 21.5306 20.4694V20.4694ZM3.75 10.5C3.75 6.77208 6.77208 3.75 10.5 3.75C14.2279 3.75 17.25 6.77208 17.25 10.5C17.25 14.2279 14.2279 17.25 10.5 17.25C6.77379 17.2459 3.75413 14.2262 3.75 10.5V10.5Z"
+                  fill="#CCCCCC"
+                />
+              </svg>
+            </button>
+            <div className={`search-input ${isVisible ? "visible" : ""}`}>
+              <input
+                type="text"
+                placeholder="Search..."
+                className="search"
+                value={searchText}
+                onChange={(e) => handleSearchTextChange(e.target.value)}
               />
-            </g>
-            <defs>
-              <clipPath id="clip0_157_398">
-                <rect width="24" height="24" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
-        </button>
-        <p>charts</p>
-      </nav>
-        <button className="nav-icon-button" aria-label="Downloads" 
-         onClick={()=>Navigate("/submit-music")}>
+              <img
+                src="images/close.svg"
+                alt="Close search"
+                className="close-icon"
+                onClick={() => {
+                  setVissibility(false);
+                  setSearchText("");
+                }}
+                style={{ filter: "invert(1)" }}
+              />
+            </div>
+          </div>
+          <button
+            className="nav-icon-button"
+            aria-label="Downloads"
+            onClick={() => Navigate("/charts")}
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g clip-path="url(#clip0_157_398)">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M20.25 3.75H12.75V2.25C12.75 1.83579 12.4142 1.5 12 1.5C11.5858 1.5 11.25 1.83579 11.25 2.25V3.75H3.75C2.92157 3.75 2.25 4.42157 2.25 5.25V16.5C2.25 17.3284 2.92157 18 3.75 18H7.44L5.41406 20.5312C5.15518 20.8549 5.20765 21.3271 5.53125 21.5859C5.85485 21.8448 6.32705 21.7924 6.58594 21.4688L9.36 18H14.64L17.4141 21.4688C17.6729 21.7924 18.1451 21.8448 18.4688 21.5859C18.7924 21.3271 18.8448 20.8549 18.5859 20.5312L16.56 18H20.25C21.0784 18 21.75 17.3284 21.75 16.5V5.25C21.75 4.42157 21.0784 3.75 20.25 3.75ZM20.25 16.5H3.75V5.25H20.25V16.5ZM9.75 11.25V13.5C9.75 13.9142 9.41421 14.25 9 14.25C8.58579 14.25 8.25 13.9142 8.25 13.5V11.25C8.25 10.8358 8.58579 10.5 9 10.5C9.41421 10.5 9.75 10.8358 9.75 11.25ZM12.75 9.75V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9.75C11.25 9.33579 11.5858 9 12 9C12.4142 9 12.75 9.33579 12.75 9.75ZM15.75 8.25V13.5C15.75 13.9142 15.4142 14.25 15 14.25C14.5858 14.25 14.25 13.9142 14.25 13.5V8.25C14.25 7.83579 14.5858 7.5 15 7.5C15.4142 7.5 15.75 7.83579 15.75 8.25Z"
+                  fill="#C4C4C4"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_157_398">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </button>
+          <p>charts</p>
+        </nav>
+        <button
+          className="nav-icon-button"
+          aria-label="Downloads"
+          onClick={() => Navigate("/submit-music")}
+        >
           <svg
             width="20"
             height="20"
@@ -65,8 +120,6 @@ const NavigationIcons: React.FC = () => {
         </button>
         <p>submit music</p>
       </nav>
-     
-  
 
       {/* <button className="nav-icon-button" aria-label="Add User">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
