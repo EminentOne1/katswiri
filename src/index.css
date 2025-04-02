@@ -94,7 +94,7 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px;
+  padding: 2px 40px;
   border-bottom: 1px solid #e5e8eb;
   background-color: var(--primary-color);
 }
@@ -109,7 +109,7 @@ body::after {
   font-size: 18px;
   font-weight: 700;
   filter: invert(1);
-  width: 120px;
+  width: 90px;
 }
 
 .search-button {
@@ -683,7 +683,7 @@ body::after {
 
 @media (max-width: 640px) {
   .app-header {
-    padding: 12px 20px;
+    padding: 2px 20px;
     flex-wrap: wrap;
     gap: 12px;
   }

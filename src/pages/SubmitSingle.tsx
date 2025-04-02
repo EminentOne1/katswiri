@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const SubmitSingle: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -7,16 +8,46 @@ const SubmitSingle: React.FC = () => {
   const [releaseDate, setReleaseDate] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [artCover, setArtCover] = useState<File | null>(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log({ title, artist, genre, releaseDate, file, artCover });
+    if (!file || !artCover) {
+      setErrorMessage('Please upload both the music file and the art cover.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('artist', artist);
+    formData.append('genre', genre);
+    formData.append('releaseDate', releaseDate);
+    formData.append('file', file);
+    formData.append('artCover', artCover);
+    formData.append('type', 'single'); // Specify that this is a single
+
+    try {
+      const response = await axios.post('/api/v1/songs/single', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setSuccessMessage('Single submitted successfully!');
+      setErrorMessage('');
+      console.log(response.data);
+    } catch (error) {
+      setErrorMessage('Failed to submit the single. Please try again.');
+      console.error(error);
+    }
   };
 
   return (
     <div className="submit-single-page">
       <h1>Submit Single</h1>
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div className="submit-single-container">
         <div className="form-section">
           <form onSubmit={handleSubmit} className="submit-single-form">

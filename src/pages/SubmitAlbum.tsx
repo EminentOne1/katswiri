@@ -22,42 +22,73 @@ const SubmitAlbum: React.FC = () => {
     setSongs(updatedSongs);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log({ albumTitle, artist, genre, releaseDate, artCover, songs });
+  
+    const formData = new FormData();
+    formData.append('albumTitle', albumTitle);
+    formData.append('artist', artist);
+    formData.append('genreId', genre);
+    formData.append('releaseDate', releaseDate);
+    
+    if (artCover) {
+      formData.append('artCover', artCover);
+    }
+  
+    // ✅ Ensure songFiles is correct
+    songs.forEach((song) => {
+      if (song.file) {
+        formData.append('songFiles', song.file); // CORRECT: No array notation
+      }
+    });
+  
+    // 🔍 Debugging Output (check browser console)
+    for (let pair of formData.entries()) {
+      console.log(`Key: ${pair[0]}, Value:`, pair[1]);
+    }
+  
+    try {
+      const response = await fetch('/api/v1/songs/album', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log('Album submitted successfully');
+        alert('Album submitted successfully!');
+      } else {
+        console.error('Failed to submit album');
+      }
+    } catch (error) {
+      console.error('Error submitting album:', error);
+    }
   };
+  
 
   return (
     <div className="submit-album-page">
-      <div style={{ display: 'flex',gap:"10px",flexDirection:'row', justifyContent: 'space-between', alignItems: 'center' }}>
-      <h1>Submit Album</h1>
-      <button type="button" className="add-song-button-hidden" onClick={handleAddSong}>
-            + Add a song
-          </button>
-          </div>
+      <div style={{ display: 'flex', gap: '10px', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Submit Album</h1>
+        <button type="button" className="add-song-button-hidden" onClick={handleAddSong}>
+          + Add a song
+        </button>
+      </div>
       <div className="submit-album-container">
-      <div className="form-group">
-            <label htmlFor="artCover">Upload Art Cover</label>
-            <input
-              type="file"
-              id="artCover"
-              placeholder='.'
-              onChange={(e) => setArtCover(e.target.files ? e.target.files[0] : null)}
-              required
-            />
-            {artCover && (
-              <div className="art-cover-preview">
-                <img
-                  src={URL.createObjectURL(artCover)}
-                  alt="Art Cover Preview"
-                  className="art-cover-image"
-                />
-              </div>
-            )}
-          </div>
+        <div className="form-group">
+          <label htmlFor="artCover">Upload Art Cover</label>
+          <input
+            type="file"
+            id="artCover"
+            onChange={(e) => setArtCover(e.target.files ? e.target.files[0] : null)}
+            required
+          />
+          {artCover && (
+            <div className="art-cover-preview">
+              <img src={URL.createObjectURL(artCover)} alt="Art Cover Preview" className="art-cover-image" />
+            </div>
+          )}
+        </div>
         <div className="album-details-section">
-         
           <form onSubmit={handleSubmit} className="submit-album-form">
             <div className="form-group">
               <label htmlFor="albumTitle">Album Title</label>
@@ -97,19 +128,17 @@ const SubmitAlbum: React.FC = () => {
               <input
                 type="date"
                 id="releaseDate"
-                placeholder="dd/mm/yyyy"
                 value={releaseDate}
                 onChange={(e) => setReleaseDate(e.target.value)}
                 required
               />
             </div>
-          
-            <button type="submit" className="submit-button">Submit Album</button>
-        
+            <button type="submit" className="submit-button">
+              Submit Album
+            </button>
           </form>
         </div>
         <div className="songs-section">
-          
           <div className="songs-list">
             {songs.map((song, index) => (
               <div key={index} className="song-item">
@@ -125,17 +154,14 @@ const SubmitAlbum: React.FC = () => {
                   onChange={(e) => handleSongChange(index, 'file', e.target.files ? e.target.files[0] : null)}
                   required
                 />
-                
               </div>
             ))}
           </div>
-          
         </div>
         <button type="button" className="add-song-button" onClick={handleAddSong}>
-            + Add a song
-          </button>
+          + Add a song
+        </button>
       </div>
-      
     </div>
   );
 };

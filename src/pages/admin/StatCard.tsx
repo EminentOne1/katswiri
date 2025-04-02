@@ -1,9 +1,9 @@
 import React from "react";
 
 interface StatCardProps {
-  title: string;
-  value: string;
-  change: string;
+  title?: string;
+  value?: string;
+  change?: string;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({ title, value, change }) => {
