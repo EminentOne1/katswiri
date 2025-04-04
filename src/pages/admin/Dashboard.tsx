@@ -16,17 +16,28 @@ export const DashboardContent: React.FC = () => {
     totalTracks: 0,
     totalAlbums: 0,
     totalArtists: 0,
+    totalSongs: 0, // Added totalSongs
   });
 
   const [activities, setActivities] = useState<Activity[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
         const { data } = await axios.get("/api/dashboard-stats");
-        setStats(data);
+        setStats((prevStats) => ({ ...prevStats, ...data }));
       } catch (error) {
         console.error("Failed to fetch dashboard stats:", error);
+      }
+    };
+
+    const fetchTotalSongs = async () => {
+      try {
+        const { data } = await axios.get("/api/total-songs");
+        setStats((prevStats) => ({ ...prevStats, totalSongs: data.totalSongs }));
+      } catch (error) {
+        console.error("Failed to fetch total songs:", error);
       }
     };
 
@@ -40,36 +51,40 @@ export const DashboardContent: React.FC = () => {
     };
 
     fetchStats();
+    fetchTotalSongs();
     fetchActivities();
   }, []);
+
+  const handlemobileResize = () => {
+    const width = window.innerWidth;
+    setIsMobile(width <= 768);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", () => handlemobileResize());
+
+    if (isMobile) {
+      window.removeEventListener("resize", () => handlemobileResize());
+      console.log("Cleanup: Remove resize event listener");
+    }
+  }, [isMobile]);
+
+  if (isMobile) {
+    return <div className="mobile-warning">Dashboard is not available on mobile devices.</div>;
+  }
 
   return (
     <div className="dashboard-container">
       <section className="dashboard-content">
-        <header className="header">
-          <h1 className="title">Dashboard Overview</h1>
-        </header>
-
         <div className="stats-grid">
-          <StatCard title="Total Tracks" value={stats.totalTracks.toString()} />
-          <StatCard title="Total Albums" value={stats.totalAlbums.toString()} />
-          <StatCard title="Total Artists" value={stats.totalArtists.toString()} />
+          <StatCard title="Total singles" value={"0"} />
+          <StatCard title="Total Albums" value={"0"} />
+          {/* Added StatCard for totalSongs */}
         </div>
 
         <h2 className="section-title">Recent Activity</h2>
 
-        <div className="activity-feed">
-          {activities.map((activity, index) => (
-            <ActivityItem
-              key={activity.id}
-              isFirst={index === 0}
-              isLast={index === activities.length - 1}
-              icon={activity.icon}
-              title={activity.title}
-              time={activity.time}
-            />
-          ))}
-        </div>
+        <div className="activity-feed"></div>
 
         <h2 className="section-title">Quick Actions</h2>
 

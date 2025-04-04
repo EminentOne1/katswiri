@@ -65,7 +65,7 @@ const NavigationIcons: React.FC = () => {
                   setVissibility(false);
                   setSearchText("");
                 }}
-                style={{ filter: "invert(1)" }}
+                style={{ filter: "invert(0)" }}
               />
             </div>
           </div>

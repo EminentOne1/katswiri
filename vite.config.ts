@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 import path from "path";
+
 export default defineConfig({
   plugins: [
     react(),
@@ -11,7 +12,8 @@ export default defineConfig({
       manifest: {
         name: "Katswiri",
         short_name: "Katswiri",
-        start_url: ".",
+        start_url: "./",
+        scope: "./",
         display: "standalone",
         background_color: "#ffffff",
         theme_color: "#ffffff",
@@ -28,23 +30,47 @@ export default defineConfig({
           },
         ],
       },
+      injectManifest: {}, // Ensure this is configured as needed
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.destination === "document",
+            handler: "NetworkFirst",
+          },
+          {
+            urlPattern: ({ request }) =>
+              ["style", "script", "worker"].includes(request.destination),
+            handler: "StaleWhileRevalidate",
+          },
+          {
+            urlPattern: ({ request }) => request.destination === "image",
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
   build: {
     outDir: "dist",
-    sourcemap: false, // You can disable sourcemaps for production builds to reduce size
+    sourcemap: false, // Disable sourcemaps for production builds
     rollupOptions: {
       input: path.resolve(__dirname, "index.html"),
     },
   },
   optimizeDeps: {
-    // Pre-bundle dependencies for faster build
     include: ["react", "react-dom"],
   },
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "http://localhost:5000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

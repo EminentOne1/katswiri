@@ -5,12 +5,13 @@ const sessionManager = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-  const decoded = verifyToken(token);
-  if (!decoded) {
+  try {
+    const decoded = verifyToken(token);
+    req.user = decoded;
+    next();
+  } catch (error) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
-  req.user = decoded;
-  next();
 };
 
 export default sessionManager;

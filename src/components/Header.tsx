@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ logoText, handlesearchtext }) => {
         alt={logoText}
         onClick={() => Navigate("/")}
       />
-     
+
       {/* <nav className="header-nav">
         <ul className="nav-list">
           <li><a href="#downloads" className="nav-link">My Downloads</a></li>

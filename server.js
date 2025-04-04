@@ -10,16 +10,14 @@ import songsRoutes from "./routes/songs.js";
 import adminRoutes from "./routes/adminroutes.js";
 import sessionManager from "./middleware/sessionManager.js";
 import authRoutes from "./routes/authRoutes.js";
-import sequelize from "./models/sequelize.js";
-import "./models/index.js";
 import serveStatic from "serve-static";
 
 dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
-
-async function runMigrations() {
+/** 
+ async function runMigrations() {
   try {
     const force = process.env.NODE_ENV === "development";
     await sequelize.sync({ force, alter: !force });
@@ -29,10 +27,12 @@ async function runMigrations() {
     process.exit(1);
   }
 }
+*/
+
 
 async function createServer() {
   const app = express();
-  await runMigrations();
+ // await runMigrations();
 
   app.use(express.json());
   app.use(compression());

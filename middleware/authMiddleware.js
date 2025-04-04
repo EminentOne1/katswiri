@@ -1,6 +1,7 @@
-import jwt from "jsonwebtoken"; 
+import jwt from "jsonwebtoken";
 
-const SECRET_KEY = "your-secret-key"; 
+const SECRET_KEY = "katswirim";
+import { supabase } from "../src/utils/supabase.js";
 
 const loginMiddleware = async (req, res) => {
   if (req.method !== "POST") {
@@ -9,12 +10,27 @@ const loginMiddleware = async (req, res) => {
 
   const { email, password } = req.body;
 
-  if (email === "admin@katswiri.com" && password === "password") {
-    const token = jwt.sign({ userId: "adminUserId", role: "admin" }, SECRET_KEY, { expiresIn: "1h" }); 
-    return res.status(200).json({ token });
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    return res
+      .status(401)
+      .json({ message: "Invalid credentials", error: error.message });
   }
 
-  return res.status(401).json({ message: "Invalid credentials" });
+  const token = jwt.sign(
+    { userId: data.user.id, role: data.user.role || "user" },
+    SECRET_KEY,
+    { expiresIn: "1h" }
+  );
+
+  return res.status(200).json({
+    message: "Login successful",
+    token,
+  });
 };
 
 export default loginMiddleware;

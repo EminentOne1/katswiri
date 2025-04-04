@@ -17,8 +17,10 @@ import { DashboardContent } from "./pages/admin/Dashboard";
 import Settings from "./pages/admin/Settings";
 import UserManagement from "./pages/admin/UserManagement";
 import Login from "./pages/admin/Login"; 
+import Preload from "./components/Preload"; // Import the Preload component
 
 import { jwtDecode } from "jwt-decode"; 
+import AdminUsers from "./components/AdminUsers";
 
 const RequireAdmin = ({ children }: { children: JSX.Element }) => {
   const token = localStorage.getItem("token");
@@ -30,7 +32,7 @@ const RequireAdmin = ({ children }: { children: JSX.Element }) => {
     const decodedToken = jwtDecode<{ userId: string; role: string }>(token); 
     const userRole = decodedToken.role; 
     console.log("Decoded token:", decodedToken);
-    if (userRole === "admin") {
+    if (userRole === "authenticated") {
       return children;
     }
     console.log("User is not an admin:", userRole || "No role found in token");
@@ -43,7 +45,7 @@ const RequireAdmin = ({ children }: { children: JSX.Element }) => {
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />}>
+    <Route path="/" element={<Preload><Root /></Preload>}> {/* Wrap Root in Preload */}
       <Route index element={<Home />} />
       <Route path="/songPreview/:id" element={<SongPreview />} />
       <Route path="/charts" element={<Charts />} />
@@ -60,7 +62,7 @@ export const router = createBrowserRouter(
       >
         <Route index element={<Navigate to="dashboard" replace />} />
         <Route path="dashboard" element={<DashboardContent />} />
-        <Route path="users" element={<UserManagement />} />
+        <Route path="users" element={<AdminUsers />} />
         <Route path="settings" element={<Settings />} />
       </Route>
       <Route path="/admin/login" element={<Login />} />

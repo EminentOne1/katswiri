@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Navigate,useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -11,9 +11,8 @@ export const Sidebar: React.FC = () => {
           src="/images/home.png"
           alt="Admin profile"
           className="profile-image"
-          onClick={()=>navigate("/")}
+          onClick={() => navigate("/")}
         />
-
       </div>
 
       <div className="nav-links">
@@ -89,7 +88,7 @@ export const Sidebar: React.FC = () => {
           <span>Artists</span>
         </a>
 
-        <a href="#" className="nav-item">
+        <a href="/admin/users" className="nav-item">
           <svg
             width="24"
             height="24"
@@ -106,15 +105,18 @@ export const Sidebar: React.FC = () => {
           </svg>
           <span>Users</span>
         </a>
-
       </div>
-     
-        <button id="log-out" className="nav-item" onClick={()=>{
 
+      <button
+        id="log-out"
+        className="nav-item"
+        onClick={() => {
           localStorage.removeItem("token");
-          window.location.href="/admin/login"
-        }}>Log out </button>
-   
+          window.location.href = "/admin/login";
+        }}
+      >
+        Log out
+      </button>
     </nav>
   );
 };
