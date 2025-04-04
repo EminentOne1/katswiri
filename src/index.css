@@ -108,7 +108,7 @@ body::after {
   color: var(--text-color);
   font-size: 18px;
   font-weight: 700;
-  filter: invert(1);
+  filter: invert(0);
   width: 90px;
 }
 
