@@ -30,7 +30,6 @@ export default defineConfig({
           },
         ],
       },
-      injectManifest: {}, // Ensure this is configured as needed
       workbox: {
         runtimeCaching: [
           {
@@ -49,7 +48,7 @@ export default defineConfig({
               cacheName: "images",
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                maxAgeSeconds: 30 * 24 * 60 * 60,
               },
             },
           },
@@ -59,7 +58,7 @@ export default defineConfig({
   ],
   build: {
     outDir: "dist",
-    sourcemap: false, // Disable sourcemaps for production builds
+    sourcemap: false,
     rollupOptions: {
       input: path.resolve(__dirname, "index.html"),
     },
@@ -68,12 +67,8 @@ export default defineConfig({
     include: ["react", "react-dom"],
   },
   server: {
-    proxy: {
-      "/api": {
-        target: "https://katswiri.vercel.app",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
+    // REMOVE this in SSR setup
+    // Your express server handles API locally
+    middlewareMode: true, // optional, clarifies you're using Vite with SSR
   },
 });
