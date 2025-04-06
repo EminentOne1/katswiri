@@ -1,9 +1,8 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { IncomingForm, File } from "formidable";
 import fs from "fs";
-import { supabase } from "../src/utils/supabase";
+import { supabase } from "../supabase";
 
-// Vercel only allows writing to /tmp
 export const config = {
   api: {
     bodyParser: false,

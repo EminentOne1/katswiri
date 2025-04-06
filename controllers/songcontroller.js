@@ -1,7 +1,7 @@
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import axios from "axios";
-import { supabase } from "../src/utils/supabase.js";
+import { supabase } from "../supabase.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

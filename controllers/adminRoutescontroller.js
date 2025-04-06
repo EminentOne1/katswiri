@@ -1,4 +1,4 @@
-import { supabase } from "../src/utils/supabase.js";
+import { supabase } from "../supabase.js";
 
 const AdminRoutesController = {
   createSong(req, res) {

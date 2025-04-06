@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const SECRET_KEY = "katswirim";
-import { supabase } from "../src/utils/supabase.js";
+import { supabase } from "../supabase.js";
 
 const loginMiddleware = async (req, res) => {
   if (req.method !== "POST") {

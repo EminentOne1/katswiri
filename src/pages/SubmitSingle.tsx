@@ -45,7 +45,7 @@ const SubmitSingle: React.FC = () => {
     formData.append("type", "single");
 
     try {
-      const response = await axios.post("/api/v1/songs/single", formData, {
+      const response = await axios.post("/api/single", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
