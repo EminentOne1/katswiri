@@ -12,7 +12,7 @@ import authRoutes from "../routes/authRoutes.js";
 const app = express();
 app.use(express.json());
 
-app.get("/api/v1/test", (_req, res) => {
+app.get("/test", (_req, res) => {
   res.json({ message: "✅ Test route is working!" });
 });
 
