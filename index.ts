@@ -4,7 +4,6 @@ import { renderPage } from "vite-plugin-ssr/server";
 const app = express();
 
 app.use(express.json());
-app.use("/api/custom", (req: any, res: any) => res.json({ hello: "world" })); // simple route
 
 app.get("*", async (req, res) => {
   const pageContext = await renderPage({ urlOriginal: req.originalUrl });
