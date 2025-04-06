@@ -67,8 +67,6 @@ export default defineConfig({
     include: ["react", "react-dom"],
   },
   server: {
-    // REMOVE this in SSR setup
-    // Your express server handles API locally
-    middlewareMode: true, // optional, clarifies you're using Vite with SSR
+    middlewareMode: true,
   },
 });
