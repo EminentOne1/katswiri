@@ -1,110 +1,72 @@
-import express from "express";
+import { Router } from "express";
+import { SongController } from "../controllers/songcontroller.js";
+import multer from "multer";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { createServer as createViteServer } from "vite";
-import compression from "compression";
-import dotenv from "dotenv";
-import cors from "cors";
-import serveStatic from "serve-static";
 
-import songsRoutes from "./routes/songs.js";
-import adminRoutes from "./routes/adminroutes.js";
-import sessionManager from "./middleware/sessionManager.js";
-import authRoutes from "./routes/authRoutes.js";
+const router = Router();
 
-dotenv.config();
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PORT = process.env.PORT || 3000;
-const isProduction = process.env.NODE_ENV === "production";
-
-async function createServer() {
-  const app = express();
-
-  app.use(express.json());
-  app.use(compression());
-  app.use(cors({
-    origin: ["https://katswiri.vercel.app"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }));
-
-  // ✅ Optional: Health check route
-  app.get("/api/health", (req, res) => {
-    res.json({ status: "ok", time: new Date().toISOString() });
-  });
-
-  // ✅ Mount API routes BEFORE SSR
-  app.use("/api/v1/songs", songsRoutes);
-  app.use("/api/v1/auth", authRoutes);
-  app.use("/api/v1/adminroutes", sessionManager, adminRoutes);
-
-  if (isProduction) {
-    app.use(serveStatic(path.resolve(__dirname, "dist/client")));
-
-    app.use("*", async (req, res, next) => {
-      // ✅ Prevent SSR from handling API requests
-      if (req.originalUrl.startsWith("/api")) return next();
-
-      try {
-        const url = req.originalUrl;
-        const template = fs.readFileSync(
-          path.resolve(__dirname, "dist/client/index.html"),
-          "utf-8"
-        );
-        const { render } = await import("./dist/server/entry-server.js");
-
-        const { appHtml, headTags } = await render(url);
-        const html = template
-          .replace("<!--ssr-outlet-->", appHtml)
-          .replace("<head>", `<head>${headTags}`);
-
-        res.status(200).set({ "Content-Type": "text/html" }).send(html);
-      } catch (error) {
-        console.error("❌ SSR Error (Production):", error);
-        res.status(500).send("Internal Server Error");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const albumTitle =
+      req.body.title || req.body.albumTitle || "katswiri_untracked"; // Fallback to 'default_album' if title is undefined
+    const albumFolder = path.join("uploads", albumTitle);
+    console.log("Album folder path:", albumFolder);
+    fs.mkdir(albumFolder, { recursive: true }, (err) => {
+      if (err) {
+        return cb(err, null);
       }
+      cb(null, albumFolder);
     });
-  } else {
-    const vite = await createViteServer({
-      server: {
-        middlewareMode: "ssr",
-        hmr: { protocol: "ws", host: "localhost" }, // Or your local IP
-      },
-      appType: "custom",
-    });
-
-    app.use(vite.middlewares);
-
-    app.use("*", async (req, res, next) => {
-      if (req.originalUrl.startsWith("/api")) return next();
-
-      try {
-        const url = req.originalUrl;
-        let template = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf-8");
-
-        template = await vite.transformIndexHtml(url, template);
-        const { render } = await vite.ssrLoadModule("/src/entry-server.tsx");
-        const { appHtml, headTags } = await render(url);
-
-        const html = template
-          .replace("<!--ssr-outlet-->", appHtml)
-          .replace("<head>", `<head>${headTags}`);
-
-        res.status(200).set({ "Content-Type": "text/html" }).send(html);
-      } catch (error) {
-        console.error("❌ SSR Error (Dev):", error);
-        res.status(500).send("Internal Server Error");
-      }
-    });
-  }
-
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`);
-  });
-}
-
-createServer().catch((err) => {
-  console.error("❌ Failed to start server:", err);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, `${uniqueSuffix}-${file.originalname}`);
+  },
 });
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype.startsWith("audio/") ||
+    file.mimetype.startsWith("image/")
+  ) {
+    cb(null, true);
+  } else {
+    cb(
+      new Error("Invalid file type. Only audio and image files are allowed."),
+      false
+    );
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+});
+
+router.get("/", SongController.getAllSongs);
+router.get("/:id", SongController.getSongById);
+router.post(
+  "/single",
+  upload.fields([
+    { name: "file", maxCount: 1 },
+    { name: "artCover", maxCount: 1 },
+  ]),
+  SongController.createSong
+);
+router.patch("/:id/status", SongController.updateSongStatus);
+router.patch("/:id/like", SongController.incrementLikes);
+router.post(
+  "/album",
+  upload.fields([
+    { name: "artCover", maxCount: 1 },
+    { name: "songFiles", maxCount: 50 },
+  ]),
+  SongController.createAlbum
+);
+router.post("/genres", SongController.addGenre);
+
+export default router;
