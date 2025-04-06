@@ -3,12 +3,6 @@ import { IncomingForm, File } from "formidable";
 import fs from "fs";
 import { supabase } from "../supabase";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST allowed" });
