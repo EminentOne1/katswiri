@@ -4,7 +4,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === "GET") {
     res.status(200).json({ message: "Hello from Vercel API (GET)!" });
   } else if (req.method === "POST") {
-    res.status(200).json({ message: "Hello from Vercel API (POST)!" });
+    res.status(200).json({ message: "vercel api return" });
   } else {
     res.status(405).json({ message: "Method Not Allowed" });
   }
