@@ -9,7 +9,7 @@ import cors from "cors";
 import serveStatic from "serve-static";
 
 import songsRoutes from "./routes/songs.js";
-import adminRoutes from "./routes/adminroutes.js";
+import adminRoutes from './routes/adminRoutes';
 import sessionManager from "./middleware/sessionManager.js";
 import authRoutes from "./routes/authRoutes.js";
 
