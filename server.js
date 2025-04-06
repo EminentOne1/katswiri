@@ -26,7 +26,7 @@ async function createServer() {
   app.use(compression());
   app.use(
     cors({
-      origin: ["https://localhost:5000"],
+      origin: ["http://localhost:5000"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
     })
