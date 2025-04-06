@@ -75,7 +75,7 @@ async function createServer() {
     const vite = await createViteServer({
       server: {
         middlewareMode: "ssr",
-        hmr: { protocol: "ws", host: "localhost" },
+        hmr: { protocol: "ws", host: "https://katswiri.vercel.app" },
       },
     });
     app.use(vite.middlewares);
