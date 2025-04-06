@@ -9,7 +9,6 @@ import songsRoutes from "../routes/songs.js";
 import adminRoutes from "../routes/adminroutes.js";
 import sessionManager from "../middleware/sessionManager.js";
 import authRoutes from "../routes/authRoutes.js";
-
 const app = express();
 app.use(express.json());
 
