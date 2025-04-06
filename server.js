@@ -26,7 +26,7 @@ async function createServer() {
   app.use(compression());
   app.use(
     cors({
-      origin: ["https://katswiri.vercel.app"],
+      origin: ["https://localhost:5000"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       allowedHeaders: ["Content-Type", "Authorization"],
     })
