@@ -13,7 +13,6 @@ import authRoutes from "../routes/authRoutes.js";
 const app = express();
 app.use(express.json());
 
-// ✅ Test route
 app.get("/api/v1/test", (_req, res) => {
   res.json({ message: "✅ Test route is working!" });
 });
@@ -22,7 +21,6 @@ app.use("/api/v1/songs", songsRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/adminroutes", sessionManager, adminRoutes);
 
-// Export a custom Node handler for Vercel
 const server = createServer(app);
 
 export default async function handler(

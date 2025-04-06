@@ -3,14 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/server/index.js",
+ 
   "scripts": {
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
-    "start": "node index.ts",
+    "start": "node server.js",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist/server"
   },
   "dependencies": {
