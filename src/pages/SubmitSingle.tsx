@@ -45,14 +45,14 @@ const SubmitSingle: React.FC = () => {
     formData.append("type", "single");
 
     try {
-      const response = await axios.post("/api/single", formData, {
+      const response = await axios.post("https://katswiri.vercel.app/api/single", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       setIsLoading(false);
-      NotificationWrapper.success("Single submitted successfully");
-      console.log(response);
+    NotificationWrapper.success("Single submitted successfully");
+      console.log(response.data);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         setErrorMessage(
