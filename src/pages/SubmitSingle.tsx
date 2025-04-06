@@ -45,12 +45,13 @@ const SubmitSingle: React.FC = () => {
     formData.append("type", "single");
 
     try {
-      const response = await fetch("/api/single", {
-        method: "POST",
-        body: formData,
+      const response = await axios.post("/api/single", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
       setIsLoading(false);
-    NotificationWrapper.success("Single submitted successfully");
+      NotificationWrapper.success("Single submitted successfully");
       console.log(response);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
