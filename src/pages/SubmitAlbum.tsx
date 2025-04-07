@@ -180,7 +180,7 @@ const SubmitAlbum: React.FC = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="releaseDate">Release Date</label>
+            <label htmlFor="releaseDate">Release Date ( 3 days before release )</label>
             <input
               type="date"
               id="releaseDate"
