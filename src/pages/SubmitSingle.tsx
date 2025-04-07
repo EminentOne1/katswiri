@@ -57,7 +57,7 @@ const SubmitSingle: React.FC = () => {
       if (axios.isAxiosError(error) && error.response) {
         setErrorMessage(
           `Failed to submit the single. Server responded with: ${
-            error.response.data.message || "Internal Server Error"
+            error.response || "Internal Server Error"
           }`
         );
       } else {
