@@ -11,8 +11,10 @@ export const config = {
 };
 
 const supabase = createClient(
-  process.env.REACT_APP_SUPABASE_URL || "https://yrxeldgvagliebeoksiu.supabase.co",
-  process.env.REACT_APP_SUPABASE_ANON_KEY || "your-public-anon-key"
+  process.env.REACT_APP_SUPABASE_URL ||
+    "https://yrxeldgvagliebeoksiu.supabase.co",
+  process.env.REACT_APP_SUPABASE_ANON_KEY ||
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyeGVsZGd2YWdsaWViZW9rc2l1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MzczODAyNSwiZXhwIjoyMDU5MzE0MDI1fQ.9qa_zEHRjUZN5YVocxPdV6nNp-7bIaPaMAEE5-PNCTs"
 );
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -58,7 +60,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       try {
-        const songPath = `songs/${Date.now()}-${file.originalFilename ?? "song.mp3"}`;
+        const songPath = `songs/${Date.now()}-${
+          file.originalFilename ?? "song.mp3"
+        }`;
         const songBuffer = fs.readFileSync(file.filepath ?? "");
 
         const { error: songUploadError } = await supabase.storage
@@ -72,7 +76,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           throw songUploadError;
         }
 
-        const coverPath = `covers/${Date.now()}-${artCover.originalFilename ?? "cover.jpg"}`;
+        const coverPath = `covers/${Date.now()}-${
+          artCover.originalFilename ?? "cover.jpg"
+        }`;
         const coverBuffer = fs.readFileSync(artCover.filepath ?? "");
 
         const { error: coverUploadError } = await supabase.storage
