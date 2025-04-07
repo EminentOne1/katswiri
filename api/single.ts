@@ -1,16 +1,18 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { IncomingForm, File } from "formidable";
+import { IncomingForm } from "formidable";
 import fs from "fs";
-
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
+// Prevent Next.js from parsing the body automatically
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const supabase = createClient(
-  supabaseUrl || "https://yrxeldgvagliebeoksiu.supabase.co",
-  supabaseKey ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyeGVsZGd2YWdsaWViZW9rc2l1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MzczODAyNSwiZXhwIjoyMDU5MzE0MDI1fQ.9qa_zEHRjUZN5YVocxPdV6nNp-7bIaPaMAEE5-PNCTs"
+  process.env.REACT_APP_SUPABASE_URL || "https://yrxeldgvagliebeoksiu.supabase.co",
+  process.env.REACT_APP_SUPABASE_ANON_KEY || "your-public-anon-key"
 );
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -56,12 +58,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
 
       try {
-        const songPath = `songs/${Date.now()}-${
-          file.originalFilename ?? "song.mp3"
-        }`;
+        const songPath = `songs/${Date.now()}-${file.originalFilename ?? "song.mp3"}`;
+        const songBuffer = fs.readFileSync(file.filepath ?? "");
+
         const { error: songUploadError } = await supabase.storage
           .from("music")
-          .upload(songPath, fs.createReadStream(file.filepath ?? ""), {
+          .upload(songPath, songBuffer, {
             contentType: file.mimetype ?? undefined,
           });
 
@@ -70,12 +72,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           throw songUploadError;
         }
 
-        const coverPath = `covers/${Date.now()}-${
-          artCover.originalFilename ?? "cover.jpg"
-        }`;
+        const coverPath = `covers/${Date.now()}-${artCover.originalFilename ?? "cover.jpg"}`;
+        const coverBuffer = fs.readFileSync(artCover.filepath ?? "");
+
         const { error: coverUploadError } = await supabase.storage
           .from("music")
-          .upload(coverPath, fs.createReadStream(artCover.filepath ?? ""), {
+          .upload(coverPath, coverBuffer, {
             contentType: artCover.mimetype ?? undefined,
           });
 
