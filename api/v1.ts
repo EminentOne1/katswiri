@@ -1,9 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
-  // Check if the request method is GET
-  if (req.method !== "GET") {
+  if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST allowed" });
   }
-  res.status(405).json({ message: "this is a current test api" });
+
+  return res.status(200).json({ message: "this is a current test api" });
 }
