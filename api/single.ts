@@ -116,7 +116,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log("✅ Upload and insert successful:", newSong);
         res.status(201).json({ message: "Song uploaded", song: newSong });
       } catch (uploadErr: any) {
-        console.error("🔥 Upload process failed:", uploadErr);
+        console.error("🔥 Upload process failed:", uploadErr.message);
         res.status(500).json({
           message: "Upload failed",
           error: uploadErr.message || uploadErr,
