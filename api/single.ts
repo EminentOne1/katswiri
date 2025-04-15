@@ -1,4 +1,4 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { IncomingForm } from "formidable";
 import fs from "fs";
 import { createClient } from "@supabase/supabase-js";
@@ -6,13 +6,14 @@ import admin from "firebase-admin";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
+// Disable bodyParser so we can handle multipart/form-data
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-
+// Firebase Admin Initialization
 if (!getApps().length) {
   initializeApp({
     credential: cert({
@@ -22,14 +23,16 @@ if (!getApps().length) {
     }),
   });
 }
+
 const db = getFirestore();
 
-
+// Supabase Client Initialization
 const supabase = createClient(
   process.env.SUPABASE_URL!,
   process.env.SUPABASE_ANON_KEY!
 );
 
+// API Handler
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Only POST allowed" });
@@ -38,7 +41,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const form = new IncomingForm({
     multiples: true,
     keepExtensions: true,
-    uploadDir: "/tmp",
+    uploadDir: "/tmp", // ✅ Vercel-compatible temp directory
   });
 
   form.parse(req, async (err, fields, files) => {
@@ -57,18 +60,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const type = getFieldValue(fields.type);
 
     const file = Array.isArray(files.file) ? files.file[0] : files.file;
-    const artCover = Array.isArray(files.artCover)
-      ? files.artCover[0]
-      : files.artCover;
+    const artCover = Array.isArray(files.artCover) ? files.artCover[0] : files.artCover;
 
     if (!file || !artCover) {
-      return res
-        .status(400)
-        .json({ message: "Missing song or art cover file" });
+      return res.status(400).json({ message: "Missing song or art cover file" });
     }
 
     try {
-      // Upload song
+      // Upload song to Supabase
       const songPath = `songs/${Date.now()}-${file.originalFilename}`;
       const songBuffer = fs.readFileSync(file.filepath);
 
@@ -84,7 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .from("katswiri")
         .getPublicUrl(songPath).data.publicUrl;
 
-      // Upload art cover
+      // Upload art cover to Supabase
       const coverPath = `covers/${Date.now()}-${artCover.originalFilename}`;
       const coverBuffer = fs.readFileSync(artCover.filepath);
 
@@ -100,7 +99,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .from("katswiri")
         .getPublicUrl(coverPath).data.publicUrl;
 
-      // Save metadata to Firestore
+      // Store metadata in Firestore
       const songRef = await db.collection("songs").add({
         title,
         artist,
@@ -115,7 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         likes: 0,
       });
 
-      // Create notification
+      // Add notification
       await db.collection("notifications").add({
         message: `New song uploaded: ${title}`,
         status: "unread",
