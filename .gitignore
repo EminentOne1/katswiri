@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+katswiri-538b3-firebase-adminsdk-fbsvc-3ef040bc63.json
 node_modules
 dist
 dist-ssr

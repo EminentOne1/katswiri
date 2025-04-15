@@ -2,6 +2,9 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { IncomingForm } from "formidable";
 import fs from "fs";
 import { createClient } from "@supabase/supabase-js";
+import admin from "firebase-admin";
+import { initializeApp, cert, getApps } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
 export const config = {
   api: {
@@ -9,10 +12,22 @@ export const config = {
   },
 };
 
+
+if (!getApps().length) {
+  initializeApp({
+    credential: cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    }),
+  });
+}
+const db = getFirestore();
+
+
 const supabase = createClient(
-  process.env.SUPABASE_URL || "https://yrxeldgvagliebeoksiu.supabase.co",
-  process.env.SUPABASE_ANON_KEY ||
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlyeGVsZGd2YWdsaWViZW9rc2l1Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MzczODAyNSwiZXhwIjoyMDU5MzE0MDI1fQ.9qa_zEHRjUZN5YVocxPdV6nNp-7bIaPaMAEE5-PNCTs"
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_ANON_KEY!
 );
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -29,9 +44,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   form.parse(req, async (err, fields, files) => {
     if (err) {
       console.error("❌ Form parsing error:", err);
-      return res
-        .status(500)
-        .json({ message: "Form parsing failed", error: err });
+      return res.status(500).json({ message: "Form parsing failed" });
     }
 
     const getFieldValue = (field?: string | string[]) =>
@@ -49,81 +62,76 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       : files.artCover;
 
     if (!file || !artCover) {
-      console.warn("⚠️ Missing file(s)", { file, artCover });
       return res
         .status(400)
         .json({ message: "Missing song or art cover file" });
     }
 
     try {
-      const songPath = `songs/${Date.now()}-${
-        file.originalFilename ?? "song.mp3"
-      }`;
-      const songBuffer = fs.existsSync(file.filepath)
-        ? fs.readFileSync(file.filepath)
-        : null;
-
-      if (!songBuffer) throw new Error("Failed to read song file");
+      // Upload song
+      const songPath = `songs/${Date.now()}-${file.originalFilename}`;
+      const songBuffer = fs.readFileSync(file.filepath);
 
       const { error: songUploadError } = await supabase.storage
-        .from("music")
+        .from("katswiri")
         .upload(songPath, songBuffer, {
           contentType: file.mimetype || "audio/mpeg",
         });
 
-      if (songUploadError) {
-        console.error("❌ Song upload error:", songUploadError);
-        throw songUploadError;
-      }
+      if (songUploadError) throw songUploadError;
 
-      const coverPath = `covers/${Date.now()}-${
-        artCover.originalFilename ?? "cover.jpg"
-      }`;
-      const coverBuffer = fs.existsSync(artCover.filepath)
-        ? fs.readFileSync(artCover.filepath)
-        : null;
+      const songURL = supabase.storage
+        .from("katswiri")
+        .getPublicUrl(songPath).data.publicUrl;
 
-      if (!coverBuffer) throw new Error("Failed to read cover file");
+      // Upload art cover
+      const coverPath = `covers/${Date.now()}-${artCover.originalFilename}`;
+      const coverBuffer = fs.readFileSync(artCover.filepath);
 
       const { error: coverUploadError } = await supabase.storage
-        .from("music")
+        .from("katswiri")
         .upload(coverPath, coverBuffer, {
           contentType: artCover.mimetype || "image/jpeg",
         });
 
-      if (coverUploadError) {
-        console.error("❌ Cover upload error:", coverUploadError);
-        throw coverUploadError;
-      }
+      if (coverUploadError) throw coverUploadError;
 
-      const { data: newSong, error: insertError } = await supabase
-        .from("songs")
-        .insert([
-          {
-            title,
-            artist,
-            genre,
-            releaseDate,
-            type,
-            filePath: songPath,
-            artCoverPath: coverPath,
-            likes: 0,
-          },
-        ])
-        .select();
+      const coverURL = supabase.storage
+        .from("katswiri")
+        .getPublicUrl(coverPath).data.publicUrl;
 
-      if (insertError) {
-        console.error("❌ DB insert error:", insertError);
-        throw insertError;
-      }
+      // Save metadata to Firestore
+      const songRef = await db.collection("songs").add({
+        title,
+        artist,
+        genre,
+        releaseDate,
+        type,
+        filePath: songPath,
+        artCoverPath: coverPath,
+        fileURL: songURL,
+        artCoverURL: coverURL,
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        likes: 0,
+      });
 
-      console.log("✅ Upload + insert success", newSong);
-      res
-        .status(201)
-        .json({ message: "Song uploaded successfully", song: newSong });
+      // Create notification
+      await db.collection("notifications").add({
+        message: `New song uploaded: ${title}`,
+        status: "unread",
+        date: admin.firestore.FieldValue.serverTimestamp(),
+        songId: songRef.id,
+      });
+
+      return res.status(201).json({
+        message: "Song uploaded successfully",
+        songId: songRef.id,
+        fileURL: songURL,
+        artCoverURL: coverURL,
+      });
     } catch (uploadErr: any) {
       console.error("🔥 Upload process failed:", uploadErr);
-      res.status(500).json({
+      return res.status(500).json({
         message: "Upload failed",
         error: uploadErr?.message || "Unexpected error",
       });
